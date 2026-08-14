@@ -22,11 +22,13 @@ function updateScrollState() {
     const ecosystemRect = ecosystemScroll.getBoundingClientRect();
     const mobileLayout = window.innerWidth <= 900;
     const travel = Math.max(1, ecosystemScroll.offsetHeight - window.innerHeight);
-    const progress = mobileLayout ? 1 : clamp(-ecosystemRect.top / travel, 0, 1);
+    const sceneRect = scene.getBoundingClientRect();
+    const mobileProgress = clamp((window.innerHeight * .88 - sceneRect.top) / (window.innerHeight * .62 + sceneRect.height * .55), 0, 1);
+    const progress = mobileLayout ? mobileProgress : clamp(-ecosystemRect.top / travel, 0, 1);
     const index = Math.min(steps.length - 1, Math.floor(progress * steps.length));
     scene.style.setProperty('--build-progress', progress.toFixed(3));
     stackLayers.forEach((layer, layerIndex) => {
-      const localProgress = mobileLayout ? 1 : clamp((progress + .28 - layerIndex * .18) / .32, 0, 1);
+      const localProgress = clamp((progress + .28 - layerIndex * .18) / .32, 0, 1);
       const spacing = mobileLayout ? 76 : 104;
       const finalY = (layerIndex - 1.5) * spacing;
       const entryX = (1 - localProgress) * (layerIndex % 2 ? 210 : -210);
