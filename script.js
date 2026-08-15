@@ -52,6 +52,23 @@ window.addEventListener('scroll', () => {
 window.addEventListener('resize', updateScrollState);
 updateScrollState();
 
+const scrollRevealItems = [...document.querySelectorAll('.scroll-reveal')];
+if (scrollRevealItems.length) {
+  const revealAll = () => scrollRevealItems.forEach((item) => item.classList.add('is-visible'));
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    revealAll();
+  } else {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+    scrollRevealItems.forEach((item) => revealObserver.observe(item));
+  }
+}
+
 if (peelCard) {
   const peelFront = peelCard.querySelector('[data-peel-front]');
   const peelFold = peelCard.querySelector('.peel-fold');
