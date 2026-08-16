@@ -22,7 +22,6 @@
     heroVideo.setAttribute("muted", "");
     heroVideo.setAttribute("playsinline", "");
     var startHeroVideo = function () {
-      if (reduceMotion) { heroVideo.pause(); return; }
       var play = heroVideo.play();
       if (play && typeof play.catch === "function") play.catch(function () {
         if (heroPlay) heroPlay.hidden = false;
