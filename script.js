@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches && window.innerWidth > 720;
 
   // Header scroll state
   var header = document.querySelector(".site-header");
@@ -120,7 +120,7 @@
 (function () {
   "use strict";
 
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches && window.innerWidth > 720;
   var hasIO = "IntersectionObserver" in window;
 
   // Header scroll state

@@ -384,3 +384,13 @@ p { margin: 0; }
   .hero-orbit { animation: orbit-float 10s ease-in-out infinite !important; }
   .journey-dot { animation: dot-pulse 2.4s ease-in-out infinite !important; }
 }
+
+/* The mobile experience intentionally keeps motion enabled for this site. */
+@media (max-width: 720px) and (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s var(--ease), transform .55s var(--ease); }
+  .js .reveal.in { opacity: 1; transform: none; animation: reveal-fallback .55s var(--ease) both; animation-delay: var(--d, 0s); }
+  .cost-bar .cost-fill { width: 0; transition: width .8s var(--ease); }
+  .cost-bar.in .cost-fill { width: var(--w, 60%); }
+  .divider::after { width: 0; transition: width .8s var(--ease); }
+  .divider.in::after { width: 100%; }
+}
