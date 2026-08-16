@@ -18,6 +18,9 @@
   var heroVideo = document.querySelector(".hero-video");
   var heroPlay = document.querySelector(".hero-play");
   if (heroVideo) {
+    if (window.matchMedia("(max-width: 720px)").matches && heroVideo.dataset.mobilePoster) {
+      heroVideo.poster = heroVideo.dataset.mobilePoster;
+    }
     heroVideo.muted = true;
     heroVideo.setAttribute("muted", "");
     heroVideo.setAttribute("playsinline", "");

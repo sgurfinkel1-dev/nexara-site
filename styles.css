@@ -375,3 +375,18 @@ p { margin: 0; }
   .beth-emblem { transform: none !important; }
   .nav-list a::after { transition: none; }
 }
+
+/* Mobile motion fallback: keeps the visual rhythm even when scroll observers are unavailable. */
+@media (max-width: 720px) {
+  .hero::after { animation: hero-drift 14s ease-in-out infinite alternate !important; }
+  .hero-orbit { animation: orbit-float 10s ease-in-out infinite !important; }
+  .journey-dot { animation: dot-pulse 2.4s ease-in-out infinite !important; }
+  .card, .journey, .size, .ba-item, .fact, .modal, .step-num {
+    animation: reveal-fallback .65s var(--ease) both;
+  }
+  .card:nth-child(2), .journey:nth-child(2), .size:nth-child(2) { animation-delay: 90ms; }
+  .card:nth-child(3), .journey:nth-child(3), .size:nth-child(3) { animation-delay: 180ms; }
+  .card:nth-child(4), .journey:nth-child(4) { animation-delay: 270ms; }
+  .cost-fill { width: var(--w, 60%) !important; animation: cost-grow 1.1s var(--ease) both; }
+}
+@keyframes cost-grow { from { width: 0 !important; } to { width: var(--w, 60%) !important; } }
