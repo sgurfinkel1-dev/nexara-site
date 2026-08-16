@@ -13,6 +13,26 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  // Muted inline playback is supported by mobile browsers, but some require
+  // an explicit play attempt after the media element reaches canplay.
+  var heroVideo = document.querySelector(".hero-video");
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.setAttribute("muted", "");
+    heroVideo.setAttribute("playsinline", "");
+    var startHeroVideo = function () {
+      if (reduceMotion) { heroVideo.pause(); return; }
+      var play = heroVideo.play();
+      if (play && typeof play.catch === "function") play.catch(function () {});
+      heroVideo.classList.add("is-ready");
+    };
+    heroVideo.addEventListener("loadedmetadata", startHeroVideo, { once: true });
+    heroVideo.addEventListener("canplay", startHeroVideo, { once: true });
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) startHeroVideo();
+    });
+  }
+
   // Mobile menu
   var toggle = document.querySelector(".nav-toggle");
   var menu = document.getElementById("menu");
