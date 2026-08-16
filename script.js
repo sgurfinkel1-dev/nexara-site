@@ -1,130 +1,234 @@
-const progressBar = document.querySelector('.scroll-progress span');
-const heroVisual = document.querySelector('.hero-visual');
-const scene = document.querySelector('[data-scene]');
-const stackLayers = [...document.querySelectorAll('[data-layer]')];
-const steps = [...document.querySelectorAll('.ecosystem-step')];
-const ecosystemScroll = document.querySelector('.ecosystem-scroll');
-const peelCard = document.querySelector('[data-peel-card]');
+// Nexara Consulting — interações do site
+(function () {
+  "use strict";
 
-const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function updateScrollState() {
-  const scrollTop = window.scrollY;
-  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-  progressBar.style.width = `${scrollable ? (scrollTop / scrollable) * 100 : 0}%`;
-
-  if (heroVisual) {
-    const heroProgress = clamp(scrollTop / Math.max(window.innerHeight, 1), 0, 1);
-    heroVisual.style.setProperty('--parallax', `${heroProgress * 70}px`);
+  // Header scroll state
+  var header = document.querySelector(".site-header");
+  function onScroll() {
+    if (window.scrollY > 12) header.classList.add("scrolled");
+    else header.classList.remove("scrolled");
   }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 
-  if (scene && ecosystemScroll) {
-    const ecosystemRect = ecosystemScroll.getBoundingClientRect();
-    const mobileLayout = window.innerWidth <= 900;
-    const travel = Math.max(1, ecosystemScroll.offsetHeight - window.innerHeight);
-    const sceneRect = scene.getBoundingClientRect();
-    const mobileProgress = clamp((window.innerHeight * .88 - sceneRect.top) / (window.innerHeight * .62 + sceneRect.height * .55), 0, 1);
-    const progress = mobileLayout ? mobileProgress : clamp(-ecosystemRect.top / travel, 0, 1);
-    const index = Math.min(steps.length - 1, Math.floor(progress * steps.length));
-    scene.style.setProperty('--build-progress', progress.toFixed(3));
-    stackLayers.forEach((layer, layerIndex) => {
-      const localProgress = clamp((progress + .28 - layerIndex * .18) / .32, 0, 1);
-      const spacing = mobileLayout ? 76 : 104;
-      const finalY = (layerIndex - 1.5) * spacing;
-      const entryX = (1 - localProgress) * (layerIndex % 2 ? 210 : -210);
-      const entryY = (1 - localProgress) * 70;
-      layer.style.opacity = String(.08 + localProgress * .92);
-      layer.style.transform = `translate3d(calc(-50% + ${entryX}px), calc(-50% + ${finalY + entryY}px), ${layerIndex * 24}px) rotateX(58deg) rotateZ(-12deg)`;
-      layer.classList.toggle('is-built', localProgress > .86);
-      layer.classList.toggle('is-current', layerIndex === index);
+  // Mobile menu
+  var toggle = document.querySelector(".nav-toggle");
+  var menu = document.getElementById("menu");
+  if (toggle && menu) {
+    toggle.addEventListener("click", function () {
+      var open = menu.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
     });
-    steps.forEach((step, stepIndex) => step.classList.toggle('is-active', stepIndex === index));
+    menu.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") {
+        menu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
   }
-}
 
-let ticking = false;
-window.addEventListener('scroll', () => {
-  if (!ticking) {
-    window.requestAnimationFrame(() => { updateScrollState(); ticking = false; });
-    ticking = true;
-  }
-}, { passive: true });
-window.addEventListener('resize', updateScrollState);
-updateScrollState();
+  // Scroll reveal
+  var revealEls = document.querySelectorAll(
+    ".scroll-copy, .section-title, .section-lead, .card, .method, .modal, .size, .journey, .ba-item, .fact, .step-num, .stat-panel, .check-list, .beth-emblem, .paper-body"
+  );
+  revealEls.forEach(function (el) { el.classList.add("reveal"); });
 
-const scrollRevealItems = [...document.querySelectorAll('.scroll-reveal')];
-if (scrollRevealItems.length) {
-  const revealAll = () => scrollRevealItems.forEach((item) => item.classList.add('is-visible'));
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-    revealAll();
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    revealEls.forEach(function (el) { el.classList.add("in"); });
   } else {
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
-    scrollRevealItems.forEach((item) => revealObserver.observe(item));
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealEls.forEach(function (el) { io.observe(el); });
   }
-}
 
-if (peelCard) {
-  const peelFront = peelCard.querySelector('[data-peel-front]');
-  const peelFold = peelCard.querySelector('.peel-fold');
-  let peelProgress = 0;
-  let peelOpen = false;
-  const setPeel = (next) => {
-    peelProgress = Math.max(0, Math.min(1, next));
-    peelCard.style.setProperty('--peel-progress', peelProgress.toFixed(3));
-    const reveal = 100 * peelProgress;
-    peelCard.style.setProperty('--peel-edge', `${reveal}%`);
-    if (peelFront) {
-      peelFront.style.clipPath = `polygon(${reveal}% 0, 100% 0, 100% 100%, ${reveal}% 100%)`;
+  // Count-up for pesquisa stats
+  function animateCount(el) {
+    var target = parseInt(el.getAttribute("data-count"), 10);
+    if (isNaN(target)) return;
+    var dur = 1100;
+    var start = performance.now();
+    function tick(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
     }
-    if (peelFold) {
-      peelFold.style.opacity = String(Math.min(1, peelProgress * 2.6));
-      peelFold.style.transform = `translateX(-50%) perspective(300px) rotateY(${24 + peelProgress * 42}deg) scaleX(${.35 + peelProgress * .65})`;
-    }
-    peelCard.classList.toggle('is-peeled', peelProgress > .08);
-    peelCard.setAttribute('aria-pressed', String(peelProgress > .5));
-  };
-  const togglePeel = () => {
-    peelOpen = !peelOpen;
-    setPeel(peelOpen ? 1 : 0);
-  };
-  peelCard.addEventListener('pointermove', (event) => {
-    if (event.pointerType === 'touch') return;
-    const rect = peelCard.getBoundingClientRect();
-    if (!peelOpen) setPeel(1 - (event.clientX - rect.left) / rect.width);
-  }, { passive: true });
-  peelCard.addEventListener('pointerleave', () => {
-    if (!peelOpen) setPeel(0);
-  }, { passive: true });
-  peelCard.addEventListener('click', togglePeel);
-  peelCard.addEventListener('keydown', (event) => {
-    if (event.key !== 'Enter' && event.key !== ' ') return;
-    event.preventDefault();
-    togglePeel();
-  });
-  setPeel(0);
-}
+    requestAnimationFrame(tick);
+  }
 
-if (heroVisual && window.matchMedia('(pointer:fine)').matches) {
-  window.addEventListener('pointermove', (event) => {
-    const x = (event.clientX / window.innerWidth - .5) * 12;
-    const y = (event.clientY / window.innerHeight - .5) * 12;
-    heroVisual.style.setProperty('--tilt-x', `${y * -1}deg`);
-    heroVisual.style.setProperty('--tilt-y', `${x}deg`);
-    heroVisual.querySelectorAll('.orbit-node, .visual-caption').forEach((item, index) => {
-      item.style.translate = `${x * (index % 2 ? .35 : -.25)}px ${y * (index % 2 ? -.3 : .2)}px`;
+  var counters = document.querySelectorAll(".fact-num[data-count]");
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    counters.forEach(function (el) { el.textContent = el.getAttribute("data-count"); });
+  } else {
+    var cio = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            animateCount(entry.target);
+            cio.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    counters.forEach(function (el) { cio.observe(el); });
+  }
+})();
+// Nexara Consulting — interações do site
+(function () {
+  "use strict";
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hasIO = "IntersectionObserver" in window;
+
+  // Header scroll state
+  var header = document.querySelector(".site-header");
+  var progress = document.getElementById("progress");
+  function onScroll() {
+    var y = window.scrollY || 0;
+    if (header) header.classList.toggle("scrolled", y > 12);
+    if (progress && !reduceMotion) {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = (h > 0 ? (y / h) * 100 : 0) + "%";
+    }
+    parallax();
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Mobile menu
+  var toggle = document.querySelector(".nav-toggle");
+  var menu = document.getElementById("menu");
+  if (toggle && menu) {
+    toggle.addEventListener("click", function () {
+      var open = menu.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
     });
-  }, { passive: true });
-}
+    menu.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") {
+        menu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
 
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-  link.addEventListener('click', () => {
-    document.body.classList.add('is-navigating');
-    window.setTimeout(() => document.body.classList.remove('is-navigating'), 500);
+  // Parallax on Beth emblem
+  var emblem = document.querySelector(".beth-emblem");
+  function parallax() {
+    if (reduceMotion || !emblem || window.innerWidth <= 720) {
+      if (emblem) emblem.style.transform = "none";
+      return;
+    }
+    var rect = emblem.getBoundingClientRect();
+    var offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * -0.06;
+    emblem.style.transform = "translateY(" + offset.toFixed(1) + "px)";
+  }
+
+  // Reveal targets + stagger inside grids
+  var revealEls = document.querySelectorAll(
+    ".section-title, .section-lead, .card, .method, .modal, .size, .journey, .ba-item, .fact, .step-num, .beth-emblem, .paper-body, .cost-bars"
+  );
+  revealEls.forEach(function (el) { el.classList.add("reveal"); });
+
+  // staggered delay for cards within the same parent
+  var groups = {};
+  revealEls.forEach(function (el) {
+    var p = el.parentElement;
+    if (!p) return;
+    var key = p.className || p.tagName;
+    groups[key] = (groups[key] || 0);
+    var idx = groups[key];
+    if (el.classList.contains("card") || el.classList.contains("method") || el.classList.contains("modal") || el.classList.contains("journey") || el.classList.contains("size") || el.classList.contains("ba-item") || el.classList.contains("fact")) {
+      el.style.setProperty("--d", (idx * 70) + "ms");
+      groups[key]++;
+    }
   });
-});
+
+  // Cost bars + dividers
+  var bars = document.querySelectorAll(".cost-bar");
+  var dividers = document.querySelectorAll(".divider");
+
+  function addIn(el) { el.classList.add("in"); }
+
+  if (reduceMotion || !hasIO) {
+    revealEls.forEach(addIn);
+    bars.forEach(addIn);
+    dividers.forEach(addIn);
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add("in"); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    revealEls.forEach(function (el) { io.observe(el); });
+
+    var bio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add("in"); bio.unobserve(entry.target); }
+      });
+    }, { threshold: 0.4 });
+    bars.forEach(function (el) { bio.observe(el); });
+    dividers.forEach(function (el) { bio.observe(el); });
+  }
+
+  // Active nav link via section observer
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-list a[href^='#']"));
+  var sections = navLinks
+    .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+    .filter(Boolean);
+  if (hasIO && sections.length) {
+    var navIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          navLinks.forEach(function (a) {
+            a.classList.toggle("active", a.getAttribute("href") === "#" + id);
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(function (s) { navIO.observe(s); });
+  }
+
+  // Count-up for pesquisa stats
+  function animateCount(el) {
+    var target = parseInt(el.getAttribute("data-count"), 10);
+    if (isNaN(target)) return;
+    var dur = 1100, start = performance.now();
+    function tick(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  }
+  var counters = document.querySelectorAll(".fact-num[data-count]");
+  if (reduceMotion || !hasIO) {
+    counters.forEach(function (el) { el.textContent = el.getAttribute("data-count"); });
+  } else {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { animateCount(entry.target); cio.unobserve(entry.target); }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function (el) { cio.observe(el); });
+  }
+
+  window.addEventListener("resize", parallax, { passive: true });
+  onScroll();
+})();

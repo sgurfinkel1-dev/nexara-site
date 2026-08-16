@@ -1,183 +1,285 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Nexara Consulting: maturidade que escala para escolas privadas." />
-    <title>Nexara | Maturidade que escala</title>
-    <link rel="icon" href="assets/nexara-logo-dark.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=mobile-2" />
-    <script defer src="script.js?v=mobile-2"></script>
-  </head>
-  <body>
-    <div class="noise" aria-hidden="true"></div>
-    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexara Consulting — Arquitetura do ecossistema humano para escolas</title>
+  <meta name="description" content="A Nexara estrutura o ecossistema humano da sua escola: pessoas, estratégia e governança conectadas para crescer sem adoecer as pessoas no caminho." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="Nexara, início">
-        <img src="assets/nexara-logo-white.svg" alt="Nexara" />
+  <div class="scroll-progress" id="progress" aria-hidden="true"></div>
+  <header class="site-header" id="topo">
+    <div class="container header-inner">
+      <a class="brand" href="#topo" aria-label="Nexara Consulting — início">
+        <img src="assets/logos/nexara-horizontal-white.svg" alt="Nexara Consulting" class="brand-logo" />
       </a>
       <nav class="main-nav" aria-label="Navegação principal">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-list" id="menu">
+          <li><a href="#ecossistema">Ecossistema</a></li>
+          <li><a href="#metodos">Métodos</a></li>
+          <li><a href="#pesquisa">Pesquisa</a></li>
+          <li><a href="#beth">Beth</a></li>
+          <li><a href="#contato">Contato</a></li>
+          <li><a class="btn btn-accent nav-cta" href="#contato">Agendar diagnóstico</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- HERO -->
+    <section class="hero" aria-label="Apresentação">
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/nexara-poster.png">
+        <source src="assets/hero/creating-consulting-hero.mp4" type="video/mp4" />
+        <source src="assets/hero/nexara-hero.webm" type="video/webm" />
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="container hero-content hero-content-hidden" aria-hidden="true">
+        <p class="eyebrow">Ecossistema humano para escolas</p>
+        <h1 class="hero-title">Maturidade que escala.</h1>
+        <p class="hero-sub">Estruturas de pessoas, liderança e governança para escolas privadas que crescem sem adoecer quem sustenta o crescimento.</p>
+        <div class="hero-actions">
+          <a class="btn btn-accent" href="#contato">Agendar diagnóstico</a>
+          <a class="btn btn-ghost" href="#ecossistema">Conheça o ecossistema</a>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#cenario" aria-label="Rolar para o conteúdo">
+        <span></span>
+      </a>
+    </section>
+    <hr class="divider" aria-hidden="true" />
+
+    <!-- CENÁRIO / PROBLEMA -->
+    <section class="section" id="cenario">
+      <div class="container">
+        <div class="scroll-copy reveal">
+          <p class="eyebrow">Ecossistema humano para escolas</p>
+          <h1 class="hero-title">Maturidade que escala.</h1>
+          <p class="hero-sub">Estruturas de pessoas, liderança e governança para escolas privadas que crescem sem adoecer quem sustenta o crescimento.</p>
+          <div class="hero-actions">
+            <a class="btn btn-accent" href="#contato">Agendar diagnóstico</a>
+            <a class="btn btn-ghost" href="#ecossistema">Conheça o ecossistema</a>
+          </div>
+        </div>
+        <div class="hero-orbit" aria-label="AnimaÃ§Ã£o do ecossistema humano escolar">
+          <span class="orbit orbit-a"></span><span class="orbit orbit-b"></span>
+          <span class="orbit-core">a<br />pessoa</span>
+          <span class="orbit-label orbit-label-one">Pessoas</span>
+          <span class="orbit-label orbit-label-two">EstratÃ©gia</span>
+          <span class="orbit-label orbit-label-three">GovernanÃ§a</span>
+        </div>
+        <p class="section-kicker">Por que agir agora</p>
+        <h2 class="section-title">O cenário que toda escola privada conhece</h2>
+        <p class="section-lead">Esses não são problemas isolados. São sintomas de um ecossistema humano que precisa de estrutura.</p>
+        <div class="card-grid cols-3">
+          <article class="card"><h3>Lideranças sobrecarregadas</h3><p>Tudo chega na direção.</p></article>
+          <article class="card"><h3>Decisões que travam</h3><p>Ninguém sabe até onde decidir.</p></article>
+          <article class="card"><h3>Professores que saem</h3><p>Turnover que corrói vínculo.</p></article>
+          <article class="card"><h3>Famílias que somem</h3><p>Saem sem escuta prévia.</p></article>
+          <article class="card"><h3>Crescimento sem governança</h3><p>Cresce em alunos, não em processos.</p></article>
+          <article class="card"><h3>Saúde sem gestão</h3><p>Afastamentos sem causa nomeada.</p></article>
+          <article class="card"><h3>Cargos sem critério</h3><p>Promoções por percepção.</p></article>
+          <article class="card"><h3>Conflitos que se repetem</h3><p>Os mesmos desgastes todo ano.</p></article>
+          <article class="card"><h3>Dados ausentes</h3><p>Sem indicadores de pessoas.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTO -->
+    <section class="section section-alt" id="custo">
+      <div class="container narrow">
+        <p class="section-kicker">O custo de não agir</p>
+        <h2 class="section-title">Nenhuma escola vê essa conta na DRE. Todas pagam todo ano.</h2>
+        <p class="section-lead">Operar sem estrutura sai caro em horas, turnover e evasão. A NR-1 já prevê penalidade para risco psicossocial não gerenciado.</p>
+        <div class="cost-bars">
+          <div class="cost-bar"><span class="cost-fill" style="--w:84%"></span><span class="cost-text">Horas da direção em tarefas da equipe</span></div>
+          <div class="cost-bar"><span class="cost-fill" style="--w:66%"></span><span class="cost-text">Turnover docente no ano letivo</span></div>
+          <div class="cost-bar"><span class="cost-fill" style="--w:50%"></span><span class="cost-text">Famílias que saem sem aviso</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ECOSSISTEMA -->
+    <section class="section" id="ecossistema">
+      <div class="container">
+        <p class="section-kicker">O ecossistema humano</p>
+        <h2 class="section-title">Três dimensões, uma só engrenagem</h2>
+        <p class="section-lead">Quando uma dimensão se desequilibra, toda a escola sente. Quando uma se fortalece, as outras se beneficiam. A Nexara estrutura as três, de forma integrada e com método proprietário.</p>
+        <div class="card-grid cols-3">
+          <article class="card card-feature"><span class="card-tag">Pessoas</span><h3>No centro</h3><p>Entrada, desenvolvimento, pertencimento, saúde e sustentação, do onboarding à liderança que apoia no cotidiano.</p></article>
+          <article class="card card-feature"><span class="card-tag">Estratégia</span><h3>Direção</h3><p>Clareza de propósito, portes e combinações calibrados à realidade da escola, não a um pacote de prateleira.</p></article>
+          <article class="card card-feature"><span class="card-tag">Governança</span><h3>Decisão</h3><p>Rituais, papéis e indicadores que liberam a gestão e transferem autonomia para a instituição.</p></article>
+        </div>
+
+        <h3 class="block-subtitle">As quatro jornadas</h3>
+        <p class="section-lead">O ecossistema não tem peça isolada: quando o professor está sobrecarregado, a família percebe e o aluno sente.</p>
+        <div class="journey-grid">
+          <div class="journey"><span class="journey-dot"></span><h4>Professor</h4><p>Quem educa e sustenta a escola.</p></div>
+          <div class="journey"><span class="journey-dot"></span><h4>Família</h4><p>Quem escolhe, paga e recomenda.</p></div>
+          <div class="journey"><span class="journey-dot"></span><h4>Aluno</h4><p>Quem aprende quando o ecossistema funciona.</p></div>
+          <div class="journey"><span class="journey-dot"></span><h4>Colaborador</h4><p>Quem opera e sustenta a instituição.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÉTODOS -->
+    <section class="section section-alt" id="metodos">
+      <div class="container">
+        <p class="section-kicker">Nossas soluções</p>
+        <h2 class="section-title">A arquitetura Nexara</h2>
+        <p class="section-lead">Sete métodos proprietários. Um ecossistema único. Cada um se conecta ao centro: a pessoa.</p>
+        <div class="method-grid">
+          <article class="method"><span class="method-mark">VITA™</span><p>Saúde organizacional e riscos psicossociais (NR-1).</p></article>
+          <article class="method"><span class="method-mark">NXF™</span><p>Governança da relação escola-família (fNPS).</p></article>
+          <article class="method"><span class="method-mark">ZELOS™</span><p>Cultura, pertencimento e jornada do colaborador.</p></article>
+          <article class="method"><span class="method-mark">LÍDER™</span><p>Desenvolvimento de lideranças escolares.</p></article>
+          <article class="method"><span class="method-mark">AXIS™</span><p>Cargos, salários, carreira e retenção.</p></article>
+          <article class="method"><span class="method-mark">NEXO™</span><p>Cultura e governança de inclusão escolar.</p></article>
+          <article class="method"><span class="method-mark">ÁGORA™</span><p>People Analytics. Integra dados de todos os métodos.</p></article>
+        </div>
+
+        <h3 class="block-subtitle">Como a Nexara trabalha</h3>
+        <div class="modal-grid">
+          <article class="modal"><h4>Consultoria</h4><p>Diagnóstico, estruturação e implementação, com transferência de autonomia ao final.</p></article>
+          <article class="modal"><h4>Mentoria</h4><p>Desenvolvimento estratégico de lideranças escolares, individualizado.</p></article>
+          <article class="modal"><h4>Palestras</h4><p>Conteúdo estratégico para lideranças: institucional, keynote e workshop (3–4h).</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTE -->
+    <section class="section" id="porte">
+      <div class="container">
+        <p class="section-kicker">Qual o perfil da sua escola?</p>
+        <h2 class="section-title">Entrada e combinação calibradas ao porte</h2>
+        <div class="size-grid">
+          <article class="size"><h3>Escola Pequena</h3><p class="size-range">300 – 800 alunos</p><p class="size-entry">Entrada natural: VITA™ ou NXF™</p><p class="size-combo">VITA™ + NXF™ · VITA™ + ZELOS™ · NXF™ + LÍDER™</p></article>
+          <article class="size"><h3>Escola Média</h3><p class="size-range">800 – 1.500 alunos</p><p class="size-entry">Entrada natural: VITA™ ou NXF™</p><p class="size-combo">VITA™+LÍDER™+ZELOS™ · NXF™+AXIS™+LÍDER™ · VITA™+AXIS™+ÁGORA™</p></article>
+          <article class="size"><h3>Escola Grande</h3><p class="size-range">1.500+ alunos ou redes</p><p class="size-entry">Entrada natural: VITA™ ou AXIS™</p><p class="size-combo">Ecossistema completo — 5 a 7 métodos · NXF™+NEXO™+ÁGORA™</p></article>
+        </div>
+
+        <h3 class="block-subtitle">Jornada de Maturidade</h3>
+        <p class="section-lead">Nenhuma escola precisa resolver tudo de uma vez. Cada etapa fortalece a próxima.</p>
+        <ol class="steps">
+          <li><span class="step-num">1</span><h4>Diagnosticar</h4><p>Entender onde está o maior risco ou oportunidade. Começar com evidência, não com percepção.</p></li>
+          <li><span class="step-num">2</span><h4>Estruturar</h4><p>Organizar cargos, cultura, liderança, relações, inclusão ou dados.</p></li>
+          <li><span class="step-num">3</span><h4>Desenvolver</h4><p>Fortalecer lideranças, instalar rituais e consolidar mudanças na rotina.</p></li>
+          <li><span class="step-num">4</span><h4>Medir</h4><p>Acompanhar a evolução com indicadores. Percepção vira dado, dado vira decisão.</p></li>
+          <li><span class="step-num">5</span><h4>Escalar</h4><p>Operar com autonomia. A escola conduz sua maturidade; a Nexara acompanha pelo Monitor.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- O QUE MUDA -->
+    <section class="section section-alt" id="muda">
+      <div class="container">
+        <p class="section-kicker">O que muda quando a Nexara atua</p>
+        <h2 class="section-title">Antes e depois</h2>
+        <div class="beforeafter">
+          <div class="ba-item"><span class="ba-before">Alta rotatividade docente</span><span class="ba-arrow">→</span><span class="ba-after">Retenção com critério e cuidado</span></div>
+          <div class="ba-item"><span class="ba-before">Decisões concentradas na direção</span><span class="ba-arrow">→</span><span class="ba-after">Lideranças com autonomia real</span></div>
+          <div class="ba-item"><span class="ba-before">Conflitos recorrentes</span><span class="ba-arrow">→</span><span class="ba-after">Protocolo claro, sem repetição</span></div>
+          <div class="ba-item"><span class="ba-before">Falta de critérios de carreira</span><span class="ba-arrow">→</span><span class="ba-after">Trilha clara e transparente</span></div>
+          <div class="ba-item"><span class="ba-before">Insatisfação das famílias</span><span class="ba-arrow">→</span><span class="ba-after">fNPS e escuta antes da evasão</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PESQUISA -->
+    <section class="section section-paper" id="pesquisa">
+      <div class="container two-col">
+        <div>
+          <p class="section-kicker ink">Pesquisa Nacional 2026</p>
+          <h2 class="section-title ink">Ecossistema Humano Escolar</h2>
+          <p class="section-lead ink">Existe muito dado pedagógico e financeiro no setor, e quase nenhum sobre a estrutura humana que sustenta a operação. A Nexara está lançando o primeiro estudo nacional sobre o tema.</p>
+          <p class="paper-body">São 45 campos, 9 telas e cerca de 8 minutos de resposta. O campo abre em 19 de agosto de 2026, com recorte agregado e nenhuma escola identificada na publicação. Quem responde recebe o relatório antes da abertura.</p>
+          <p class="paper-body">O estudo cobre quatro jornadas — professor, colaborador, família e aluno — e lê governança por quatro instrumentos combinados. Instrumento que declara o que não mede vale mais que o que finge cobrir tudo.</p>
+        </div>
+        <aside class="paper-facts">
+          <div class="fact"><span class="fact-num" data-count="45">0</span><span class="fact-label">campos</span></div>
+          <div class="fact"><span class="fact-num" data-count="9">0</span><span class="fact-label">telas</span></div>
+          <div class="fact"><span class="fact-num" data-count="4">0</span><span class="fact-label">jornadas</span></div>
+          <div class="fact"><span class="fact-num">19/08</span><span class="fact-label">abertura de campo</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- BETH -->
+    <section class="section" id="beth">
+      <div class="container two-col beth">
+        <div class="beth-emblem">
+          <img class="beth-photo" src="assets/beth-portrait.png" alt="Elizabeth (Beth) Loureiro" />
+          <img class="beth-mark" src="assets/logos/nexara-circle-white.svg" alt="Nexara Consulting" />
+        </div>
+        <div>
+          <p class="section-kicker">Quem está por trás</p>
+          <h2 class="section-title">Elizabeth (Beth) Loureiro</h2>
+          <p class="section-lead">Fundadora da Nexara Consulting. Mais de 25 anos em transformação organizacional e 15 dedicados ao setor educacional.</p>
+          <p class="beth-body">Passou por Ericsson, Eaton e Tata Consultancy e, nos últimos 15 anos, por dentro de uma das maiores redes de educação do Brasil. Conhece de dentro como a cultura se forma e como as relações sustentam o dia a dia escolar.</p>
+          <ul class="cred-list">
+            <li>Pós em Gestão de Pessoas (FAAP) e Jornada do Cliente (PUC)</li>
+            <li>Multinacionais e grandes redes de educação no Brasil</li>
+          </ul>
+          <p class="beth-quote">"Escola madura não é a que mais cresce. É a que cresce sem perder quem faz o crescimento acontecer."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASES -->
+    <section class="section section-alt" id="cases">
+      <div class="container">
+        <p class="section-kicker">Casos de campo</p>
+        <h2 class="section-title">Resultados que a metodologia entrega</h2>
+        <div class="card-grid cols-3">
+          <article class="card"><h3>Governança e Transformação Organizacional</h3><p>Liderança da implantação de novo modelo de gestão estratégica, com OKRs, ritos executivos e governança para 16 iniciativas.</p><p class="case-result">Maior previsibilidade da execução e integração entre áreas.</p></article>
+          <article class="card"><h3>People Analytics e Performance</h3><p>Estruturação da área de People Analytics e modernização dos processos de RH.</p><p class="case-result">eNPS 76% → 83% · lNPS 49% → 58% · fechamento de vagas 35 → 17 dias.</p></article>
+          <article class="card"><h3>Transformação da Gestão de Pessoas</h3><p>Evolução dos subsistemas de RH em operação com 2.000+ colaboradores no Brasil.</p><p class="case-result">Gestão integrada à estratégia e lideranças preparadas para decidir.</p></article>
+        </div>
+      </div>
+    </section>
+    <hr class="divider" aria-hidden="true" />
+
+    <!-- CTA -->
+    <section class="cta" id="contato">
+      <div class="container cta-inner">
+        <h2 class="cta-title">Vamos agendar um diagnóstico?</h2>
+        <p class="cta-sub">Escolas que estruturam seu ecossistema humano não dependem de heroísmo diário. Dependem de método, clareza e lideranças preparadas.</p>
+        <div class="cta-actions">
+          <a class="btn btn-accent btn-lg" href="mailto:beth@nexaraconsulting.com.br">Agendar por e-mail</a>
+          <a class="btn btn-ghost btn-lg" href="tel:+5511999368443">Ligar para Beth</a>
+        </div>
+        <ul class="contact-list">
+          <li><a href="mailto:beth@nexaraconsulting.com.br">beth@nexaraconsulting.com.br</a></li>
+          <li><a href="tel:+5511999368443">11 9.9936-8443</a></li>
+          <li><a href="https://nexaraconsulting.com.br" target="_blank" rel="noopener">nexaraconsulting.com.br</a></li>
+          <li><a href="https://instagram.com/bethmloureiro" target="_blank" rel="noopener">@bethmloureiro</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <img src="assets/logos/nexara-horizontal-white.svg" alt="Nexara Consulting" class="footer-logo" />
+      <p class="footer-tag">Maturidade que escala.</p>
+      <nav class="footer-nav" aria-label="Rodapé">
         <a href="#ecossistema">Ecossistema</a>
         <a href="#metodos">Métodos</a>
-        <a href="#beth">Beth Loureiro</a>
+        <a href="#pesquisa">Pesquisa</a>
+        <a href="#beth">Beth</a>
+        <a href="#contato">Contato</a>
       </nav>
-      <a class="header-cta" href="#contato">Conversar com a Nexara <span>↗</span></a>
-    </header>
+      <p class="footer-copy">© 2026 Nexara Consulting. Todos os direitos reservados.</p>
+    </div>
+  </footer>
 
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-grid" aria-hidden="true"></div>
-        <video class="hero-film" autoplay muted loop playsinline preload="metadata" poster="assets/nexara-mark.svg" aria-label="Crianças e professora em uma sala de aula">
-          <source src="assets/creating-consulting-hero.mp4" type="video/mp4" />
-        </video>
-        <div class="hero-film-overlay" aria-hidden="true"></div>
-        <div class="hero-scroll"><span>01</span><i></i><span>ecossistema</span></div>
-      </section>
-
-      <section class="signal-strip" aria-label="Sinais do cenário escolar">
-        <div class="signal-track">
-          <span>crescimento sem estrutura</span><b>✳</b><span>decisões concentradas</span><b>✳</b><span>lideranças sobrecarregadas</span><b>✳</b><span>professores que saem</span><b>✳</b><span>famílias que silenciam</span><b>✳</b>
-          <span>crescimento sem estrutura</span><b>✳</b><span>decisões concentradas</span><b>✳</b><span>lideranças sobrecarregadas</span><b>✳</b><span>professores que saem</span><b>✳</b><span>famílias que silenciam</span><b>✳</b>
-        </div>
-      </section>
-
-      <section class="hero-followup" id="cenario" aria-labelledby="hero-title">
-        <div class="hero-followup-inner">
-          <div class="hero-copy scroll-reveal">
-            <p class="eyebrow hero-eyebrow"><span></span> Nexara Consulting · São Paulo</p>
-            <h1 id="hero-title">Maturidade<br /><em>que escala.</em></h1>
-            <p class="hero-lede">A escola cresce. A estrutura precisa acompanhar.</p>
-            <p class="hero-text">Arquitetamos o ecossistema humano escolar para conectar pessoas, decisões e crescimento sem perder quem sustenta tudo.</p>
-            <div class="hero-actions">
-              <a class="button button-primary" href="#contato">Agendar um diagnóstico <span>↗</span></a>
-              <a class="text-link" href="#ecossistema">Explorar o ecossistema <span>↓</span></a>
-            </div>
-          </div>
-          <div class="hero-visual scroll-reveal" data-parallax="0.15" aria-label="Visualização abstrata do ecossistema humano escolar">
-            <img class="brand-mark" src="assets/nexara-mark.svg" alt="" aria-hidden="true" />
-            <div class="visual-caption visual-caption-top">O que sustenta<br /><strong>o crescimento</strong></div>
-            <div class="orbit orbit-outer"></div><div class="orbit orbit-middle"></div><div class="orbit orbit-inner"></div>
-            <div class="axis axis-x"></div><div class="axis axis-y"></div><div class="axis axis-z"></div>
-            <div class="core-core"><span class="core-kicker">centro</span><strong>a<br />pessoa</strong><span class="core-dot"></span></div>
-            <div class="orbit-node node-people"><span>01</span><b>Pessoas</b></div>
-            <div class="orbit-node node-strategy"><span>02</span><b>Estratégia</b></div>
-            <div class="orbit-node node-governance"><span>03</span><b>Governança</b></div>
-            <div class="orbit-node node-culture"><span>04</span><b>Cultura</b></div>
-            <div class="visual-caption visual-caption-bottom">scroll para<br /><strong>organizar</strong></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="intro section-pad">
-        <div class="section-label"><span>01</span><i></i><span>O cenário</span></div>
-        <div class="intro-layout">
-          <h2>Todo dia sem estrutura tem um preço.</h2>
-          <div class="intro-copy">
-            <p>Ele aparece em horas, desgaste e decisões que nunca chegam a quem poderia tomá-las.</p>
-            <p>Os sintomas mudam de nome. A causa se repete: a escola cresceu, mas o ecossistema humano ficou para trás.</p>
-            <a class="text-link dark-link" href="#ecossistema">Ver como a Nexara organiza isso <span>↘</span></a>
-          </div>
-        </div>
-        <div class="stat-row">
-          <div><strong>+25</strong><span>anos em transformação<br />organizacional</span></div>
-          <div><strong>15</strong><span>anos dedicados ao<br />setor educacional</span></div>
-          <div><strong>7</strong><span>métodos proprietários<br />conectados</span></div>
-        </div>
-      </section>
-
-      <section class="ecosystem-section" id="ecossistema">
-        <div class="section-pad ecosystem-heading">
-          <div class="section-label light-label"><span>02</span><i></i><span>Arquitetura Nexara</span></div>
-          <h2>Uma escola não funciona<br /><em>em fatias.</em></h2>
-          <p>Quando uma dimensão se desequilibra, toda a escola sente. Quando uma se fortalece, as outras acompanham.</p>
-        </div>
-        <div class="ecosystem-scroll">
-          <div class="ecosystem-sticky">
-            <div class="ecosystem-scene ecosystem-stack" data-scene aria-label="Quatro planos que constroem o ecossistema humano escolar">
-              <div class="stack-blueprint" aria-hidden="true"></div>
-              <div class="stack-layer layer-people" data-layer="0"><span>01</span><strong>Pessoas</strong><small>base humana</small><i></i></div>
-              <div class="stack-layer layer-strategy" data-layer="1"><span>02</span><strong>Estratégia</strong><small>direção compartilhada</small><i></i></div>
-              <div class="stack-layer layer-governance" data-layer="2"><span>03</span><strong>Governança</strong><small>decisão distribuída</small><i></i></div>
-              <div class="stack-layer layer-culture" data-layer="3"><span>04</span><strong>Cultura</strong><small>prática cotidiana</small><i></i></div>
-              <div class="stack-spine" aria-hidden="true"><span></span></div>
-              <div class="stack-scanner" aria-hidden="true"></div>
-              <div class="stack-status"><span>estrutura integrada</span><strong>04 dimensões</strong></div>
-            </div>
-            <div class="ecosystem-steps">
-              <article class="ecosystem-step is-active" data-step="0"><span>01</span><h3>Pessoas</h3><p>Entrada, desenvolvimento, pertencimento e saúde. Do onboarding à liderança que apoia no cotidiano.</p></article>
-              <article class="ecosystem-step" data-step="1"><span>02</span><h3>Estratégia</h3><p>Prioridades que consideram a capacidade de sustentar a operação e quem faz a escola acontecer.</p></article>
-              <article class="ecosystem-step" data-step="2"><span>03</span><h3>Governança</h3><p>Papéis claros, decisões no lugar certo e rituais que reduzem o peso concentrado na direção.</p></article>
-              <article class="ecosystem-step" data-step="3"><span>04</span><h3>Cultura</h3><p>Aquilo que se pratica quando ninguém está apresentando os valores da instituição.</p></article>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="methods section-pad" id="metodos">
-        <div class="section-label"><span>03</span><i></i><span>Sete métodos · um sistema</span></div>
-        <div class="methods-intro"><h2>Estrutura sob medida<br />para o momento da escola.</h2><p>A Nexara não entrega pacote fechado. O diagnóstico encontra a primeira peça. O método conecta as próximas.</p></div>
-        <div class="methods-grid">
-          <article class="method-card method-featured"><span class="method-index">01 / 07</span><h3>VITA<sup>™</sup></h3><p>Saúde organizacional e riscos psicossociais.</p><span class="method-arrow">↗</span></article>
-          <article class="method-card"><span class="method-index">02 / 07</span><h3>NXF<sup>™</sup></h3><p>Governança da relação escola-família.</p><span class="method-arrow">↗</span></article>
-          <article class="method-card"><span class="method-index">03 / 07</span><h3>ZELOS<sup>™</sup></h3><p>Cultura, pertencimento e jornada do colaborador.</p><span class="method-arrow">↗</span></article>
-          <article class="method-card"><span class="method-index">04 / 07</span><h3>LÍDER<sup>™</sup></h3><p>Desenvolvimento de lideranças escolares.</p><span class="method-arrow">↗</span></article>
-          <article class="method-card"><span class="method-index">05 / 07</span><h3>AXIS<sup>™</sup></h3><p>Cargos, salários, carreira e retenção.</p><span class="method-arrow">↗</span></article>
-          <article class="method-card"><span class="method-index">06 / 07</span><h3>NEXO<sup>™</sup></h3><p>Cultura e governança de inclusão escolar.</p><span class="method-arrow">↗</span></article>
-          <article class="method-card method-wide"><span class="method-index">07 / 07</span><h3>ÁGORA<sup>™</sup></h3><p>People Analytics. Dados que dão suporte à decisão.</p><span class="method-arrow">↗</span></article>
-        </div>
-      </section>
-
-      <section class="principles-section section-pad">
-        <div class="section-label"><span>03.5</span><i></i><span>O que guia cada decisão</span></div>
-        <div class="principles-head"><h2>Pessoas são<br /><em>a base.</em></h2><p>Boas intenções precisam de estrutura. Estes são os princípios que orientam a metodologia, a relação com clientes e a forma de entregar.</p></div>
-        <div class="principles-grid">
-          <article><span>01</span><h3>Método antes da intenção</h3><p>Transformar desafios em caminhos claros, com método e direção.</p></article>
-          <article><span>02</span><h3>Autonomia como legado</h3><p>Nenhum projeto cria dependência. A escola sai capaz de operar o que foi construído.</p></article>
-          <article><span>03</span><h3>Cultura de pertencimento</h3><p>Uma cultura forte nasce quando as pessoas entendem seu papel e constroem junto.</p></article>
-          <article><span>04</span><h3>Longo prazo, não alívio</h3><p>Ações pontuais em estrutura adoecida geram apenas alívio momentâneo.</p></article>
-          <article><span>05</span><h3>Dados antes de opinião</h3><p>Toda decisão começa com diagnóstico, evidências e leitura de cenário.</p></article>
-        </div>
-      </section>
-
-      <section class="maturity-section">
-        <div class="section-pad">
-          <div class="section-label light-label"><span>04</span><i></i><span>Jornada de maturidade</span></div>
-          <div class="maturity-head"><h2>Começar pelo ponto<br />que mais <em>pesa.</em></h2><p>Nenhuma escola precisa resolver tudo de uma vez. Cada etapa fortalece a próxima até que a escola opere com mais autonomia.</p></div>
-          <div class="maturity-path">
-            <div class="path-line"><span></span></div>
-            <article class="path-step"><span>01</span><h3>Diagnosticar</h3><p>Entender onde está o maior risco ou oportunidade.</p></article>
-            <article class="path-step"><span>02</span><h3>Estruturar</h3><p>Organizar papéis, cultura, liderança, relações ou dados.</p></article>
-            <article class="path-step"><span>03</span><h3>Desenvolver</h3><p>Instalar rituais, formar equipes e consolidar a mudança.</p></article>
-            <article class="path-step"><span>04</span><h3>Medir</h3><p>Transformar percepção em dado e dado em decisão.</p></article>
-            <article class="path-step"><span>05</span><h3>Escalar</h3><p>Operar com autonomia, com acompanhamento quando necessário.</p></article>
-          </div>
-        </div>
-      </section>
-
-      <section class="beth-section section-pad" id="beth">
-        <div class="beth-portrait peel-card" data-peel-card tabindex="0" role="button" aria-pressed="false" aria-label="Revelar a camada Nexara por trás da foto de Beth Loureiro">
-          <div class="peel-under" aria-hidden="true"><span>ecossistema<br />humano escolar</span><strong>NEXARA</strong><small>maturidade que escala</small></div>
-          <div class="peel-front" data-peel-front>
-            <img src="assets/beth-palestra-navy.png" alt="Beth Loureiro apresentando em um auditório" />
-            <div class="portrait-ring" aria-hidden="true"></div>
-            <p>fundadora<br />NEXARA</p>
-          </div>
-          <span class="peel-fold" aria-hidden="true"></span>
-        </div>
-        <div class="beth-copy"><div class="section-label"><span>05</span><i></i><span>Quem está por trás</span></div><h2>“Escola madura não é a que mais cresce. É a que cresce sem perder quem faz o crescimento acontecer.”</h2><p>Beth Loureiro atravessou culturas sueca, americana e indiana em multinacionais e dedicou os últimos 15 anos ao setor educacional. A Nexara nasce dessa experiência por dentro da escola e de uma convicção: boas intenções precisam de estrutura.</p><div class="beth-signature">Beth Loureiro <span>fundadora · Nexara Consulting</span></div></div>
-      </section>
-
-      <section class="cta-section section-pad" id="contato">
-        <div class="cta-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="section-label light-label"><span>06</span><i></i><span>Próximo passo</span></div>
-        <h2>O crescimento já<br /><em>começou.</em></h2>
-        <p>Vamos entender o que precisa ser estruturado para a sua escola sustentar o próximo estágio.</p>
-        <a class="button button-light" href="https://wa.me/5511999368443?text=Ol%C3%A1%2C%20Beth%21%20Gostaria%20de%20agendar%20um%20diagn%C3%B3stico%20com%20a%20Nexara." target="_blank" rel="noopener noreferrer">Agendar um diagnóstico <span>↗</span></a>
-        <div class="contact-line"><a href="mailto:beth@nexaraconsulting.com.br">beth@nexaraconsulting.com.br</a></div>
-      </section>
-    </main>
-
-    <footer class="site-footer"><img src="assets/nexara-logo-white.svg" alt="Nexara" /><span>Ecossistema humano para escolas.</span><span>© 2026 Nexara Consulting</span></footer>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
