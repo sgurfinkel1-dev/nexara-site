@@ -16,6 +16,7 @@
   // Muted inline playback is supported by mobile browsers, but some require
   // an explicit play attempt after the media element reaches canplay.
   var heroVideo = document.querySelector(".hero-video");
+  var heroPlay = document.querySelector(".hero-play");
   if (heroVideo) {
     heroVideo.muted = true;
     heroVideo.setAttribute("muted", "");
@@ -23,13 +24,19 @@
     var startHeroVideo = function () {
       if (reduceMotion) { heroVideo.pause(); return; }
       var play = heroVideo.play();
-      if (play && typeof play.catch === "function") play.catch(function () {});
+      if (play && typeof play.catch === "function") play.catch(function () {
+        if (heroPlay) heroPlay.hidden = false;
+      });
       heroVideo.classList.add("is-ready");
     };
     heroVideo.addEventListener("loadedmetadata", startHeroVideo, { once: true });
     heroVideo.addEventListener("canplay", startHeroVideo, { once: true });
     document.addEventListener("visibilitychange", function () {
       if (!document.hidden) startHeroVideo();
+    });
+    if (heroPlay) heroPlay.addEventListener("click", function () {
+      heroVideo.muted = true;
+      heroVideo.play().then(function () { heroPlay.hidden = true; heroVideo.classList.add("is-ready"); }).catch(function () {});
     });
   }
 
