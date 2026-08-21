@@ -1,17 +1,17 @@
 /* ===== Nexara Consulting — design system ===== */
 :root {
-  --navy-900: #08101c;
-  --navy-800: #0d1b2a;
-  --navy-700: #122438;
-  --navy-600: #1b3350;
+  --navy-900: #25183a;
+  --navy-800: #25183a;
+  --navy-700: #33206c;
+  --navy-600: #4a315f;
   --orange: #cd5320;
-  --orange-hi: #e8632a;
-  --cream: #f5f0ea;
-  --paper: #f3ede4;
-  --ink: #0d1b2a;
-  --text: rgba(245, 240, 234, 0.86);
-  --muted: rgba(245, 240, 234, 0.6);
-  --line: rgba(245, 240, 234, 0.12);
+  --orange-hi: #e30b5d;
+  --cream: #f9f3ea;
+  --paper: #f9f3ea;
+  --ink: #25183a;
+  --text: rgba(249, 243, 234, 0.86);
+  --muted: rgba(249, 243, 234, 0.6);
+  --line: rgba(249, 243, 234, 0.12);
   --maxw: 1180px;
   --radius: 16px;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -278,7 +278,7 @@ p { margin: 0; }
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 15px;
-  background: #050a12;
+  background: #25183a;
   object-fit: contain;
 }
 
@@ -369,7 +369,7 @@ p { margin: 0; }
 .cost-bars { margin-top: 34px; display: grid; gap: 18px; }
 .cost-bar {
   position: relative; height: 46px; border-radius: 10px; overflow: hidden;
-  background: var(--navy-800, #0a1422); border: 1px solid var(--line);
+  background: var(--navy-800, #25183a); border: 1px solid var(--line);
   display: flex; align-items: center;
 }
 .cost-fill {
