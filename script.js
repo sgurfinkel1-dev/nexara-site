@@ -8,6 +8,7 @@
   var header = document.querySelector(".site-header");
   var progress = document.getElementById("progress");
   var emblem = document.querySelector(".beth-emblem");
+  var heroCarousel = document.querySelector("[data-carousel]");
 
   function parallax() {
     if (reduceMotion || !emblem || window.innerWidth <= 720) {
@@ -22,6 +23,7 @@
   function onScroll() {
     var y = window.scrollY || 0;
     if (header) header.classList.toggle("scrolled", y > 12);
+    if (heroCarousel) heroCarousel.classList.toggle("hero-copy-visible", y > 24);
     if (progress && !reduceMotion) {
       var height = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.width = (height > 0 ? (y / height) * 100 : 0) + "%";
@@ -81,7 +83,7 @@
   }
 
   var revealEls = document.querySelectorAll(
-    ".scroll-copy, .section-title, .section-lead, .card, .method, .modal, .size, .journey, .ba-item, .fact, .step-num, .stat-panel, .check-list, .beth-emblem, .paper-body, .cost-bars, .promo-video-shell"
+    ".scroll-copy, .section-title, .section-lead, .card, .method, .modal, .size, .journey, .ba-item, .fact, .step-num, .stat-panel, .check-list, .beth-emblem, .paper-body, .cost-bars, .promo-video-shell, .identity-grid article, .service-grid article, .action-grid a, .testimonial-grid article, .partner-form"
   );
   revealEls.forEach(function (el) { el.classList.add("reveal"); });
 
@@ -170,6 +172,57 @@
       });
     }, { threshold: 0.5 });
     counters.forEach(function (el) { countObserver.observe(el); });
+  }
+
+  var carousel = heroCarousel;
+  if (carousel) {
+    var slides = Array.prototype.slice.call(carousel.querySelectorAll(".hero-slide"));
+    var dots = carousel.querySelector(".carousel-dots");
+    var current = 0;
+    var timer;
+    var touchX = 0;
+
+    function showSlide(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach(function (slide, i) { slide.classList.toggle("is-active", i === current); });
+      Array.prototype.forEach.call(dots.children, function (dot, i) {
+        dot.classList.toggle("is-active", i === current);
+        dot.setAttribute("aria-selected", i === current ? "true" : "false");
+      });
+    }
+    function startCarousel() {
+      clearInterval(timer);
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        timer = setInterval(function () { showSlide(current + 1); }, 5600);
+      }
+    }
+
+    slides.forEach(function (_, i) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "carousel-dot";
+      dot.setAttribute("role", "tab");
+      dot.setAttribute("aria-label", "Mostrar foto " + (i + 1));
+      dot.addEventListener("click", function () { showSlide(i); startCarousel(); });
+      dots.appendChild(dot);
+    });
+    carousel.querySelector("[data-carousel-prev]").addEventListener("click", function () { showSlide(current - 1); startCarousel(); });
+    carousel.querySelector("[data-carousel-next]").addEventListener("click", function () { showSlide(current + 1); startCarousel(); });
+    carousel.addEventListener("mouseenter", function () { clearInterval(timer); });
+    carousel.addEventListener("mouseleave", startCarousel);
+    carousel.addEventListener("touchstart", function (event) { touchX = event.touches[0].clientX; }, { passive: true });
+    carousel.addEventListener("touchend", function (event) {
+      var delta = event.changedTouches[0].clientX - touchX;
+      if (Math.abs(delta) > 45) showSlide(current + (delta < 0 ? 1 : -1));
+      startCarousel();
+    }, { passive: true });
+    showSlide(0);
+    startCarousel();
+  }
+
+  if (new URLSearchParams(window.location.search).get("form") === "sucesso") {
+    var formStatus = document.getElementById("form-status");
+    if (formStatus) formStatus.textContent = "Mensagem enviada. A equipe Nexara entrará em contato.";
   }
 
   onScroll();

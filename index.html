@@ -8,6 +8,7 @@
   <meta name="description" content="A Nexara estrutura o ecossistema humano da sua escola: pessoas, estratégia e governança conectadas para crescer sem adoecer as pessoas no caminho." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="styles.css?v=20260816-game" />
+  <link rel="stylesheet" href="brand-refresh.css?v=20260821" />
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -23,13 +24,15 @@
           <span></span><span></span><span></span>
         </button>
         <ul class="nav-list" id="menu">
-          <li><a href="#ecossistema">Ecossistema</a></li>
-          <li><a href="#pesquisa">Pesquisa</a></li>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#atuacoes">Atuações</a></li>
           <li><a href="#video">Vídeo</a></li>
           <li><a href="#jogo">Jogo</a></li>
-          <li><a href="#beth">Beth</a></li>
           <li><a href="#contato">Contato</a></li>
-          <li><a class="btn btn-accent nav-cta" href="#contato">Agendar diagnóstico</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a class="btn btn-accent nav-cta" href="#parceira">Seja parceira</a></li>
         </ul>
       </nav>
     </div>
@@ -37,49 +40,59 @@
 
   <main id="conteudo">
     <!-- HERO -->
-    <section class="hero" aria-label="Apresentação">
-      <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/hero/nexara-poster.png" aria-hidden="true">
-        <source src="assets/hero/nexara-hero-mobile-landscape-silent.mp4" type="video/mp4" media="(max-width: 720px)" />
-        <source src="assets/hero/nexara-hero-mobile.mp4" type="video/mp4" media="(max-width: 720px)" />
-        <source src="assets/hero/creating-consulting-hero.mp4" type="video/mp4" />
-        <source src="assets/hero/nexara-hero.webm" type="video/webm" />
-      </video>
-      <button class="hero-play" type="button" hidden>Assistir apresentação</button>
+    <section class="hero hero-carousel" id="home" data-carousel aria-label="Apresentação Nexara">
+      <div class="hero-slides" aria-live="polite">
+        <figure class="hero-slide is-active"><img src="assets/hero-slide-1.webp" alt="Formação Nexara com educadores" /></figure>
+        <figure class="hero-slide"><img src="assets/hero-slide-2.webp" alt="Estudantes aprendendo juntos" /></figure>
+        <figure class="hero-slide"><img src="assets/hero-slide-3.webp" alt="Encontro Nexara entre família e escola" /></figure>
+        <figure class="hero-slide"><img src="assets/hero-slide-4.webp" alt="Planejamento estratégico escolar" /></figure>
+      </div>
       <div class="hero-overlay"></div>
-      <div class="container hero-content hero-content-hidden" aria-hidden="true">
-        <p class="eyebrow">Ecossistema humano para escolas</p>
+      <div class="container hero-content">
+        <p class="eyebrow">Nexara Consulting</p>
         <h1 class="hero-title">Maturidade que escala.</h1>
-        <p class="hero-sub">Estruturas de pessoas, liderança e governança para escolas privadas que crescem sem adoecer quem sustenta o crescimento.</p>
+        <p class="hero-sub">Pessoas conectadas transformam escolas.</p>
+        <p class="hero-copy">Estruturamos pessoas, estratégia e governança para o crescimento acontecer sem perder quem o sustenta.</p>
         <div class="hero-actions">
-          <a class="btn btn-accent" href="#contato">Agendar diagnóstico</a>
-          <a class="btn btn-ghost" href="#ecossistema">Conheça o ecossistema</a>
+          <a class="btn btn-accent" href="#parceira">Seja uma escola parceira</a>
+          <a class="btn btn-ghost" href="#sobre">Conheça a Nexara</a>
         </div>
       </div>
-      <a class="scroll-cue" href="#cenario" aria-label="Rolar para o conteúdo">
-        <span></span>
-      </a>
+      <div class="carousel-controls" aria-label="Controles do carrossel">
+        <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Foto anterior">←</button>
+        <div class="carousel-dots" role="tablist" aria-label="Selecionar foto"></div>
+        <button class="carousel-arrow" type="button" data-carousel-next aria-label="Próxima foto">→</button>
+      </div>
+      <div class="hero-reveal-cue" aria-hidden="true"><span></span>Role para revelar</div>
     </section>
     <hr class="divider" aria-hidden="true" />
 
-    <!-- CENÁRIO / PROBLEMA -->
-    <section class="section" id="cenario">
-      <div class="container">
-        <div class="scroll-copy reveal">
-          <p class="eyebrow">Ecossistema humano para escolas</p>
-          <h1 class="hero-title">Maturidade que escala.</h1>
-          <p class="hero-sub">Estruturas de pessoas, liderança e governança para escolas privadas que crescem sem adoecer quem sustenta o crescimento.</p>
-          <div class="hero-actions">
-            <a class="btn btn-accent" href="#contato">Agendar diagnóstico</a>
-            <a class="btn btn-ghost" href="#ecossistema">Conheça o ecossistema</a>
-          </div>
+    <!-- SOBRE -->
+    <section class="section section-about" id="sobre">
+      <div class="container about-grid">
+        <div>
+          <p class="section-kicker">Quem somos</p>
+          <h2 class="section-title">Um ecossistema humano para escolas que querem crescer com consistência.</h2>
+          <p class="section-lead">A Nexara conecta pessoas, decisões e cultura. Transformamos desafios humanos em estruturas claras, práticas e sustentáveis para toda a comunidade escolar.</p>
         </div>
-        <div class="hero-orbit" aria-label="Animação do ecossistema humano escolar">
+        <div class="hero-orbit" aria-label="Ecossistema humano escolar em movimento">
           <span class="orbit orbit-a"></span><span class="orbit orbit-b"></span>
           <span class="orbit-core">a<br />pessoa</span>
           <span class="orbit-label orbit-label-one">Pessoas</span>
           <span class="orbit-label orbit-label-two">Estratégia</span>
           <span class="orbit-label orbit-label-three">Governança</span>
         </div>
+      </div>
+      <div class="container identity-grid">
+        <article><span>01</span><h3>Princípio</h3><p>Uma escola só amadurece quando as pessoas crescem junto com ela.</p></article>
+        <article><span>02</span><h3>Ambição</h3><p>Ser referência em maturidade organizacional para escolas brasileiras.</p></article>
+        <article><span>03</span><h3>Propósito</h3><p>Fortalecer quem educa para transformar o futuro de toda a comunidade.</p></article>
+      </div>
+    </section>
+
+    <!-- CENÁRIO / PROBLEMA -->
+    <section class="section" id="cenario">
+      <div class="container">
         <p class="section-kicker">Por que agir agora</p>
         <h2 class="section-title">O cenário que toda escola privada conhece</h2>
         <p class="section-lead">Esses não são problemas isolados. São sintomas de um ecossistema humano que precisa de estrutura.</p>
@@ -111,6 +124,32 @@
       </div>
     </section>
 
+    <!-- SERVIÇOS -->
+    <section class="section section-paper" id="servicos">
+      <div class="container">
+        <p class="section-kicker ink">Serviços</p>
+        <h2 class="section-title ink">Estratégia aplicada à realidade da sua escola.</h2>
+        <div class="service-grid">
+          <article><span>01</span><h3>Consultoria</h3><p>Diagnóstico, desenho e implantação de estruturas para pessoas, cultura, liderança e governança.</p></article>
+          <article><span>02</span><h3>Mentoria</h3><p>Acompanhamento próximo para dirigentes e lideranças transformarem intenção em decisão e rotina.</p></article>
+          <article><span>03</span><h3>Palestras</h3><p>Encontros que mobilizam educadores, famílias e gestores em torno de desafios humanos reais.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ATUAÇÕES -->
+    <section class="section" id="atuacoes">
+      <div class="container">
+        <p class="section-kicker">Atuações</p>
+        <h2 class="section-title">Três entradas para uma transformação integrada.</h2>
+        <div class="action-grid">
+          <a href="#metodologia"><span>01</span><h3>Metodologia</h3><p>Diagnosticar, estruturar, desenvolver, medir e escalar.</p><b>Explorar →</b></a>
+          <a href="#ecossistema"><span>02</span><h3>Ecossistema</h3><p>Pessoas, estratégia e governança funcionando como um sistema.</p><b>Explorar →</b></a>
+          <a href="#pesquisa"><span>03</span><h3>Pesquisa</h3><p>Dados nacionais para orientar decisões sobre o ecossistema humano escolar.</p><b>Explorar →</b></a>
+        </div>
+      </div>
+    </section>
+
     <!-- ECOSSISTEMA -->
     <section class="section" id="ecossistema">
       <div class="container">
@@ -135,7 +174,7 @@
     </section>
 
     <!-- PORTE -->
-    <section class="section" id="porte">
+    <section class="section" id="metodologia">
       <div class="container">
         <p class="section-kicker">Qual o perfil da sua escola?</p>
         <h2 class="section-title">Entrada e combinação calibradas ao porte</h2>
@@ -216,15 +255,15 @@
       </div>
     </section>
 
-    <!-- BETH -->
-    <section class="section" id="beth">
+    <!-- FUNDADORA -->
+    <section class="section" id="fundadora">
       <div class="container two-col beth">
         <div class="beth-emblem">
           <img class="beth-photo" src="assets/beth-portrait.png" alt="Elizabeth (Beth) Loureiro" />
           <img class="beth-mark" src="assets/logos/nexara-circle-white.svg" alt="Nexara Consulting" />
         </div>
         <div>
-          <p class="section-kicker">Quem está por trás</p>
+          <p class="section-kicker">Fundadora</p>
           <h2 class="section-title">Elizabeth Loureiro</h2>
           <p class="section-lead">Fundadora da Nexara Consulting. Mais de 25 anos em transformação organizacional e 15 dedicados ao setor educacional.</p>
           <p class="beth-body">Passou por Ericsson, Eaton e Tata Consultancy e, nos últimos 15 anos, por dentro de uma das maiores redes de educação do Brasil. Conhece de dentro como a cultura se forma e como as relações sustentam o dia a dia escolar.</p>
@@ -233,6 +272,19 @@
             <li>Multinacionais e grandes redes de educação no Brasil</li>
           </ul>
           <p class="beth-quote">"Escola madura não é a que mais cresce. É a que cresce sem perder quem faz o crescimento acontecer."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEPOIMENTOS -->
+    <section class="section section-testimonials" id="depoimentos">
+      <div class="container">
+        <p class="section-kicker">Depoimentos</p>
+        <h2 class="section-title">Experiências de quem transforma escolas.</h2>
+        <div class="testimonial-grid">
+          <article><p>“A metodologia trouxe clareza para enxergarmos pessoas, decisões e cultura como partes do mesmo sistema.”</p><span>Espaço reservado para cliente</span><small>Depoimento demonstrativo</small></article>
+          <article><p>“Saímos da urgência permanente para uma rotina com papéis, critérios e conversas mais maduras.”</p><span>Espaço reservado para cliente</span><small>Depoimento demonstrativo</small></article>
+          <article><p>“O trabalho conectou a liderança à experiência vivida por professores, famílias e alunos.”</p><span>Espaço reservado para cliente</span><small>Depoimento demonstrativo</small></article>
         </div>
       </div>
     </section>
@@ -251,18 +303,41 @@
     </section>
     <hr class="divider" aria-hidden="true" />
 
+    <!-- ESCOLA PARCEIRA -->
+    <section class="section partner-section" id="parceira">
+      <div class="container partner-grid">
+        <div>
+          <p class="section-kicker">Seja uma escola parceira</p>
+          <h2 class="section-title">Vamos construir o próximo passo juntos.</h2>
+          <p class="section-lead">Conte brevemente sobre sua escola. A mensagem será enviada diretamente para a equipe Nexara.</p>
+        </div>
+        <form class="partner-form" action="https://formsubmit.co/contato@nexaraconsulting.com.br" method="POST">
+          <input type="hidden" name="_subject" value="Nova escola parceira — site Nexara" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="https://sgurfinkel1-dev.github.io/nexara-site/?form=sucesso#parceira" />
+          <input class="form-honey" type="text" name="_honey" tabindex="-1" autocomplete="off" />
+          <label>Nome<input name="nome" autocomplete="name" required /></label>
+          <label>Escola<input name="escola" autocomplete="organization" required /></label>
+          <label>E-mail profissional<input type="email" name="email" autocomplete="email" required /></label>
+          <label>Telefone<input type="tel" name="telefone" autocomplete="tel" /></label>
+          <label class="form-wide">Qual é o principal desafio hoje?<textarea name="desafio" rows="4" required></textarea></label>
+          <button class="btn btn-accent form-wide" type="submit">Enviar para a Nexara →</button>
+          <p class="form-status form-wide" id="form-status" role="status"></p>
+        </form>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="cta" id="contato">
       <div class="container cta-inner">
         <h2 class="cta-title">Vamos agendar um diagnóstico?</h2>
         <p class="cta-sub">Escolas que estruturam seu ecossistema humano não dependem de heroísmo diário. Dependem de método, clareza e lideranças preparadas.</p>
         <div class="cta-actions">
-          <a class="btn btn-accent btn-lg" href="mailto:beth@nexaraconsulting.com.br">Agendar por e-mail</a>
-          <a class="btn btn-ghost btn-lg" href="tel:+5511999368443">Ligar para Beth</a>
+          <a class="btn btn-accent btn-lg" href="https://wa.me/5511999368443?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20diagn%C3%B3stico%20com%20a%20Nexara." target="_blank" rel="noopener">Agendar diagnóstico</a>
+          <a class="btn btn-ghost btn-lg" href="mailto:contato@nexaraconsulting.com.br">Enviar e-mail</a>
         </div>
         <ul class="contact-list">
-          <li><a href="mailto:beth@nexaraconsulting.com.br">beth@nexaraconsulting.com.br</a></li>
-          <li><a href="tel:+5511999368443">11 9.9936-8443</a></li>
+          <li><a href="mailto:contato@nexaraconsulting.com.br">contato@nexaraconsulting.com.br</a></li>
           <li><a href="https://nexaraconsulting.com.br" target="_blank" rel="noopener">nexaraconsulting.com.br</a></li>
           <li><a href="https://instagram.com/bethmloureiro" target="_blank" rel="noopener">@bethmloureiro</a></li>
         </ul>
@@ -275,17 +350,20 @@
       <img src="assets/logos/nexara-horizontal-white.svg" alt="Nexara Consulting" class="footer-logo" />
       <p class="footer-tag">Maturidade que escala.</p>
       <nav class="footer-nav" aria-label="Rodapé">
+        <a href="#sobre">Sobre</a>
+        <a href="#servicos">Serviços</a>
         <a href="#ecossistema">Ecossistema</a>
         <a href="#pesquisa">Pesquisa</a>
         <a href="#video">Vídeo</a>
         <a href="jogo.html">Jogo</a>
-        <a href="#beth">Beth</a>
+        <a href="#fundadora">Fundadora</a>
+        <a href="#depoimentos">Depoimentos</a>
         <a href="#contato">Contato</a>
       </nav>
       <p class="footer-copy">© 2026 Nexara Consulting. Todos os direitos reservados.</p>
     </div>
   </footer>
 
-  <script src="script.js?v=20260816-game"></script>
+  <script src="script.js?v=20260821-brand"></script>
 </body>
 </html>
