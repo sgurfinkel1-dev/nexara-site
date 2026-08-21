@@ -304,7 +304,7 @@ p { margin: 0; }
 .game-teaser { text-align: center; }
 .game-teaser .section-title, .game-teaser .section-lead { margin-left: auto; margin-right: auto; }
 .developer-credit { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); font-size: 0.78rem; }
-.developer-credit iframe { width: 132px; height: 68px; border: 0; background: transparent; display: block; }
+.developer-credit iframe { width: 180px; height: 78px; border: 0; border-radius: 12px; background: var(--cream); display: block; }
 @media (max-width: 600px) { .developer-credit { flex-direction: column; gap: 2px; } }
 
 /* ===== Reveal animation ===== */
