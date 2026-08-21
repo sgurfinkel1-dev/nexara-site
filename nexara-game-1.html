@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Órbita Nexara — jogo do ecossistema humano</title>
+<meta name="description" content="Jogo 3D da Nexara Consulting: pilote o núcleo, colete Pessoas, Estratégia e Governança e desvie do ruído." />
+<link rel="stylesheet" href="styles.css?v=20260816-game" />
+<style>
+  /* ponytail: página do jogo é autocontida — só reusa as fontes/variáveis do styles.css */
+  html, body { height: 100%; overflow: hidden; }
+  body { background: var(--navy-900); }
+  #cena { position: fixed; inset: 0; display: block; touch-action: none; }
+
+  .hud {
+    position: fixed; inset: 0; pointer-events: none;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: max(16px, env(safe-area-inset-top)) 20px 20px;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif; color: var(--cream);
+  }
+  .hud-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .hud-logo { height: 26px; opacity: 0.9; }
+  .hud-right { display: flex; align-items: center; gap: 18px; }
+  .placar { font-weight: 800; font-size: clamp(1.4rem, 4vw, 2rem); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .vidas { display: flex; gap: 6px; }
+  .vida { width: 12px; height: 12px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 12px rgba(232,99,42,0.7); transition: opacity .25s, transform .25s; }
+  .vida.off { opacity: 0.18; transform: scale(0.7); box-shadow: none; }
+
+  .hud-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+  .pilares { display: flex; gap: 10px; }
+  .pilar {
+    display: flex; align-items: center; gap: 7px; font-size: 0.8rem; font-weight: 600;
+    padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line);
+    background: rgba(8,16,28,0.5); opacity: 0.45; transition: opacity .2s, border-color .2s;
+  }
+  .pilar.on { opacity: 1; border-color: currentColor; }
+  .pilar i { width: 10px; height: 10px; background: currentColor; display: block; }
+  .pilar.p-pessoas { color: #e8632a; } .pilar.p-pessoas i { border-radius: 50%; }
+  .pilar.p-estrategia { color: #f5f0ea; } .pilar.p-estrategia i { clip-path: polygon(50% 0,100% 50%,50% 100%,0 50%); }
+  .pilar.p-governanca { color: #7fb2e8; } .pilar.p-governanca i { border-radius: 2px; }
+
+  .dica { font-size: 0.8rem; color: var(--muted); text-align: right; }
+  .som { pointer-events: auto; background: none; border: 1px solid var(--line); color: var(--cream);
+    border-radius: 999px; width: 36px; height: 36px; cursor: pointer; font-size: 1rem; line-height: 1; }
+  .som:hover { border-color: var(--orange); }
+
+  .flash {
+    position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%) scale(0.8);
+    font-weight: 800; font-size: clamp(1.6rem, 6vw, 3rem); letter-spacing: -0.02em;
+    color: var(--orange-hi); text-shadow: 0 0 30px rgba(232,99,42,0.6);
+    opacity: 0; pointer-events: none; white-space: nowrap;
+  }
+  .flash.go { animation: pop 1s var(--ease) forwards; }
+  @keyframes pop { 0% { opacity: 0; transform: translate(-50%,-50%) scale(0.7); } 25% { opacity: 1; transform: translate(-50%,-50%) scale(1); } 100% { opacity: 0; transform: translate(-50%,-90%) scale(1); } }
+
+  .painel {
+    position: fixed; inset: 0; display: grid; place-items: center; text-align: center;
+    background: radial-gradient(circle at 50% 45%, rgba(19,40,66,0.75), rgba(8,16,28,0.94));
+    backdrop-filter: blur(6px); padding: 24px; z-index: 10;
+  }
+  .painel[hidden] { display: none; }
+  .painel-box { max-width: 520px; display: grid; gap: 18px; justify-items: center; }
+  .painel-logo { width: 92px; }
+  .painel h1 { font-size: clamp(2rem, 7vw, 3.2rem); color: var(--cream); }
+  .painel p { color: var(--text); font-size: 1rem; }
+  .painel .legenda { color: var(--muted); font-size: 0.88rem; }
+  .painel-acoes { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .como { display: grid; gap: 8px; text-align: left; font-size: 0.9rem; color: var(--text); }
+  .como li { list-style: none; display: flex; gap: 10px; align-items: center; }
+  .como b { color: var(--cream); }
+  .final-num { font-size: clamp(2.6rem, 10vw, 4rem); font-weight: 800; color: var(--orange-hi); line-height: 1; }
+  @media (max-width: 640px) { .dica { display: none; } .pilares { gap: 6px; } .pilar { padding: 6px 9px; font-size: 0.72rem; } }
+</style>
+</head>
+<body>
+<canvas id="cena"></canvas>
+
+<div class="hud" aria-hidden="true">
+  <div class="hud-top">
+    <a href="index.html"><img class="hud-logo" src="assets/logos/nexara-horizontal-white.svg" alt="Nexara Consulting" /></a>
+    <div class="hud-right">
+      <div class="vidas" id="vidas"><span class="vida"></span><span class="vida"></span><span class="vida"></span></div>
+      <div class="placar" id="placar">0</div>
+      <button class="som" id="som" type="button" aria-label="Ligar ou desligar o som">♪</button>
+    </div>
+  </div>
+  <div class="hud-bottom">
+    <div class="pilares">
+      <span class="pilar p-pessoas" id="pi-0"><i></i>Pessoas</span>
+      <span class="pilar p-estrategia" id="pi-1"><i></i>Estratégia</span>
+      <span class="pilar p-governanca" id="pi-2"><i></i>Governança</span>
+    </div>
+    <p class="dica">Mouse, setas ou dedo para mover · Esc pausa</p>
+  </div>
+</div>
+<div class="flash" id="flash"></div>
+
+<div class="painel" id="painel">
+  <div class="painel-box">
+    <img class="painel-logo" src="assets/logos/nexara-circle-white.svg" alt="" />
+    <h1 id="painel-titulo">Órbita Nexara</h1>
+    <p id="painel-texto">Você pilota o núcleo do ecossistema. Colete <b>Pessoas</b>, <b>Estratégia</b> e <b>Governança</b> — e desvie do ruído cinza.</p>
+    <ul class="como" id="painel-como">
+      <li><b>Mover:</b> mouse, dedo na tela ou setas ← →</li>
+      <li><b>Juntar os três pilares seguidos:</b> bônus Ecossistema ×3</li>
+      <li><b>Ruído cinza:</b> custa uma vida. Você tem três.</li>
+    </ul>
+    <div class="painel-acoes">
+      <button class="btn btn-accent btn-lg" id="jogar" type="button">Jogar</button>
+      <a class="btn btn-ghost" href="index.html">Voltar ao site</a>
+    </div>
+    <p class="legenda" id="painel-legenda">Feito para durar 2 minutos e ser jogado por qualquer idade.</p>
+  </div>
+</div>
+
+<script type="module">
+import * as THREE from "./assets/vendor/three.module.min.js";
+
+const NAVY = 0x08101c, ORANGE = 0xcd5320, ORANGE_HI = 0xe8632a, CREAM = 0xf5f0ea, BLUE = 0x7fb2e8;
+const LIMITE_X = 5.2;                      // meia-largura da pista, em unidades do mundo
+const PILARES = [
+  { nome: "Pessoas",    cor: ORANGE_HI, geo: () => new THREE.IcosahedronGeometry(0.55, 1) },
+  { nome: "Estratégia", cor: CREAM,     geo: () => new THREE.OctahedronGeometry(0.62) },
+  { nome: "Governança", cor: BLUE,      geo: () => new THREE.BoxGeometry(0.85, 0.85, 0.85) },
+];
+
+const canvas = document.getElementById("cena");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(NAVY);
+scene.fog = new THREE.Fog(NAVY, 22, 70);
+
+const camera = new THREE.PerspectiveCamera(58, 1, 0.1, 200);
+camera.position.set(0, 2.2, 8.5);
+camera.lookAt(0, 0.6, -6);
+
+scene.add(new THREE.AmbientLight(0xbcd0e8, 0.55));
+const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(3, 6, 6); scene.add(key);
+const brilho = new THREE.PointLight(ORANGE_HI, 26, 14);
+
+// o mundo do jogo vive num grupo: em tela estreita ele encolhe inteiro e a pista continua cabendo
+const mundo = new THREE.Group(); scene.add(mundo); mundo.add(brilho);
+
+// --- pista: grade que corre em direção à câmera, dá a sensação de velocidade ---
+const grade = new THREE.GridHelper(160, 80, ORANGE, 0x1b3350);
+grade.material.transparent = true; grade.material.opacity = 0.35;
+grade.position.y = -3.2; mundo.add(grade);
+
+// --- estrelas de fundo ---
+const estrelasPos = new Float32Array(600 * 3);
+for (let i = 0; i < 600; i++) {
+  estrelasPos[i * 3] = (Math.random() - 0.5) * 90;
+  estrelasPos[i * 3 + 1] = Math.random() * 40 - 6;
+  estrelasPos[i * 3 + 2] = -Math.random() * 140;
+}
+const estrelasGeo = new THREE.BufferGeometry();
+estrelasGeo.setAttribute("position", new THREE.BufferAttribute(estrelasPos, 3));
+mundo.add(new THREE.Points(estrelasGeo, new THREE.PointsMaterial({ color: CREAM, size: 0.16, transparent: true, opacity: 0.55 })));
+
+// --- núcleo do jogador: dois anéis + esfera (a marca Nexara em 3D) ---
+const nucleo = new THREE.Group();
+const anelExt = new THREE.Mesh(
+  new THREE.TorusGeometry(1.05, 0.11, 16, 60),
+  new THREE.MeshStandardMaterial({ color: ORANGE, emissive: ORANGE, emissiveIntensity: 0.7, roughness: 0.3, metalness: 0.4 })
+);
+const anelInt = new THREE.Mesh(
+  new THREE.TorusGeometry(0.72, 0.06, 12, 44),
+  new THREE.MeshStandardMaterial({ color: CREAM, emissive: CREAM, emissiveIntensity: 0.35, roughness: 0.4 })
+);
+anelInt.rotation.x = Math.PI / 2.4;
+const centro = new THREE.Mesh(
+  new THREE.SphereGeometry(0.34, 24, 18),
+  new THREE.MeshStandardMaterial({ color: CREAM, emissive: ORANGE_HI, emissiveIntensity: 0.5, roughness: 0.25 })
+);
+nucleo.add(anelExt, anelInt, centro);
+mundo.add(nucleo);
+
+// --- itens ---
+const matPilar = PILARES.map(p => new THREE.MeshStandardMaterial({
+  color: p.cor, emissive: p.cor, emissiveIntensity: 0.55, roughness: 0.25, metalness: 0.3,
+}));
+const geoPilar = PILARES.map(p => p.geo());
+const geoRuido = new THREE.TetrahedronGeometry(0.78);
+const matRuido = new THREE.MeshStandardMaterial({ color: 0x4a5568, roughness: 0.95, metalness: 0.05, flatShading: true });
+const geoFaisca = new THREE.SphereGeometry(0.09, 6, 5);
+
+let itens = [], faiscas = [];
+
+function nascerItem() {
+  const ruido = Math.random() < dificuldadeRuido();
+  const tipo = ruido ? -1 : (Math.random() * 3) | 0;
+  const m = new THREE.Mesh(ruido ? geoRuido : geoPilar[tipo], ruido ? matRuido : matPilar[tipo]);
+  m.position.set((Math.random() * 2 - 1) * LIMITE_X, -0.4 + Math.random() * 1.8, -70);
+  m.userData = { tipo, giro: new THREE.Vector3(Math.random(), Math.random(), Math.random()).multiplyScalar(2) };
+  mundo.add(m); itens.push(m);
+}
+
+function estourar(pos, cor) {
+  const mat = new THREE.MeshBasicMaterial({ color: cor, transparent: true });
+  for (let i = 0; i < 10; i++) {
+    const f = new THREE.Mesh(geoFaisca, mat);
+    f.position.copy(pos);
+    f.userData.v = new THREE.Vector3((Math.random() - 0.5) * 9, (Math.random() - 0.5) * 9, (Math.random() - 0.5) * 6);
+    f.userData.vida = 0.55;
+    mundo.add(f); faiscas.push(f);
+  }
+}
+
+// --- estado ---
+const S = { menu: 0, jogando: 1, pausa: 2, fim: 3 };
+let estado = S.menu;
+let pontos = 0, vidas = 3, sequencia = [], alvoX = 0, tempoNascer = 0, tremor = 0, decorrido = 0;
+
+const el = {
+  placar: document.getElementById("placar"), vidas: [...document.querySelectorAll(".vida")],
+  pilar: [0, 1, 2].map(i => document.getElementById("pi-" + i)),
+  flash: document.getElementById("flash"), painel: document.getElementById("painel"),
+  titulo: document.getElementById("painel-titulo"), texto: document.getElementById("painel-texto"),
+  como: document.getElementById("painel-como"), legenda: document.getElementById("painel-legenda"),
+  jogar: document.getElementById("jogar"),
+};
+
+const velocidade = () => Math.min(17 + pontos / 45, 44);
+const dificuldadeRuido = () => Math.min(0.2 + pontos / 6000, 0.42);
+const intervaloNascer = () => Math.max(0.2, 0.62 - pontos / 9000);
+
+function mostrarFlash(txt) {
+  el.flash.textContent = txt; el.flash.classList.remove("go");
+  void el.flash.offsetWidth; el.flash.classList.add("go");
+}
+
+// Combo: três pilares DIFERENTES seguidos fecham o ecossistema. Testável isolado (#test).
+function acumular(seq, tipo) {
+  const s = seq.includes(tipo) ? [tipo] : seq.concat(tipo);
+  return { seq: s.length === 3 ? [] : s, bonus: s.length === 3 };
+}
+
+function pintarPilares() {
+  el.pilar.forEach((p, i) => p.classList.toggle("on", sequencia.includes(i)));
+}
+
+function coletar(m) {
+  const t = m.userData.tipo;
+  if (t === -1) {
+    vidas--; tremor = 0.5; sequencia = []; pintarPilares();
+    el.vidas.forEach((v, i) => v.classList.toggle("off", i >= vidas));
+    som(150, 0.25, "sawtooth");
+    estourar(m.position, 0x8899aa);
+    if (vidas <= 0) fim();
+    return;
+  }
+  const r = acumular(sequencia, t);
+  sequencia = r.seq; pintarPilares();
+  pontos += r.bonus ? 100 : 10;
+  estourar(m.position, PILARES[t].cor);
+  if (r.bonus) { mostrarFlash("ECOSSISTEMA! +100"); som(880, 0.3); tremor = 0.18; }
+  else { mostrarFlash(PILARES[t].nome); som(420 + t * 120, 0.12); }
+  el.placar.textContent = pontos;
+}
+
+// --- som: bipes curtos, sem arquivos ---
+let audio = null, mudo = false;
+function som(freq, dur, tipo = "sine") {
+  if (mudo) return;
+  try {
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    const o = audio.createOscillator(), g = audio.createGain();
+    o.type = tipo; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.12, audio.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + dur);
+    o.connect(g).connect(audio.destination); o.start(); o.stop(audio.currentTime + dur);
+  } catch (e) { /* som é opcional */ }
+}
+document.getElementById("som").addEventListener("click", (e) => {
+  mudo = !mudo; e.currentTarget.textContent = mudo ? "✕" : "♪";
+  e.currentTarget.setAttribute("aria-pressed", String(mudo));
+});
+
+// --- controles ---
+let teclaX = 0;
+addEventListener("keydown", (e) => {
+  if (e.key === "ArrowLeft" || e.key === "a") teclaX = -1;
+  else if (e.key === "ArrowRight" || e.key === "d") teclaX = 1;
+  else if (e.key === "Escape" && estado === S.jogando) pausar();
+  else if (e.key === "Enter" && estado !== S.jogando) el.jogar.click();
+});
+addEventListener("keyup", (e) => { if (["ArrowLeft", "ArrowRight", "a", "d"].includes(e.key)) teclaX = 0; });
+function apontar(e) {
+  if (estado !== S.jogando) return;
+  alvoX = ((e.clientX / innerWidth) * 2 - 1) * LIMITE_X;
+}
+canvas.addEventListener("pointermove", apontar);
+canvas.addEventListener("pointerdown", apontar);
+
+function pausar() {
+  estado = S.pausa;
+  abrirPainel("Pausa", "O núcleo espera. Respira e volta.", "Continuar", true);
+}
+function fim() {
+  estado = S.fim;
+  som(120, 0.5, "triangle");
+  abrirPainel(
+    "Fim de jogo",
+    `<span class="final-num">${pontos}</span><br />pontos no ecossistema`,
+    "Jogar de novo", false,
+    pontos >= 500 ? "Maturidade que escala. Bora conversar sobre a escola de verdade?" : "Dica: junte os três pilares seguidos para o bônus ×3."
+  );
+}
+function abrirPainel(titulo, texto, botao, comoVisivel, legenda) {
+  el.titulo.textContent = titulo;
+  el.texto.innerHTML = texto;
+  el.como.hidden = !comoVisivel;
+  el.legenda.textContent = legenda || "";
+  el.jogar.textContent = botao;
+  el.painel.hidden = false;
+}
+
+el.jogar.addEventListener("click", () => {
+  el.painel.hidden = true;
+  if (estado !== S.pausa) reiniciar();
+  estado = S.jogando;
+  relogio.getDelta();
+});
+
+function reiniciar() {
+  itens.forEach(m => mundo.remove(m)); itens = [];
+  faiscas.forEach(f => mundo.remove(f)); faiscas = [];
+  pontos = 0; vidas = 3; sequencia = []; alvoX = 0; tempoNascer = 0; tremor = 0;
+  el.placar.textContent = "0";
+  el.vidas.forEach(v => v.classList.remove("off"));
+  pintarPilares();
+  nucleo.position.set(0, 0, 0);
+}
+
+addEventListener("blur", () => { if (estado === S.jogando) pausar(); });
+
+// --- loop ---
+const relogio = new THREE.Clock();
+function redimensionar() {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+  // a pista inteira precisa caber na tela: em retrato o mundo encolhe junto (pista e peças na mesma proporção)
+  const meiaLargura = Math.tan((camera.fov / 2) * Math.PI / 180) * camera.position.z * camera.aspect;
+  mundo.scale.setScalar(Math.min(1, meiaLargura / (LIMITE_X + 1.2)));
+}
+addEventListener("resize", redimensionar); redimensionar();
+
+renderer.setAnimationLoop(() => {
+  const dt = Math.min(relogio.getDelta(), 0.05);
+  decorrido += dt;
+
+  // núcleo sempre gira, mesmo no menu — a cena nunca fica morta
+  anelExt.rotation.z += dt * 0.9;
+  anelExt.rotation.x = Math.sin(decorrido * 0.7) * 0.25;
+  anelInt.rotation.y += dt * 1.6;
+  centro.scale.setScalar(1 + Math.sin(decorrido * 4) * 0.06);
+
+  if (estado === S.jogando) {
+    const v = velocidade();
+    alvoX = THREE.MathUtils.clamp(alvoX + teclaX * dt * 14, -LIMITE_X, LIMITE_X);
+    nucleo.position.x += (alvoX - nucleo.position.x) * Math.min(1, dt * 11);
+    nucleo.position.y = Math.sin(decorrido * 2) * 0.18;
+    nucleo.rotation.z = (alvoX - nucleo.position.x) * -0.12;
+
+    tempoNascer -= dt;
+    if (tempoNascer <= 0) { nascerItem(); tempoNascer = intervaloNascer(); }
+
+    for (let i = itens.length - 1; i >= 0; i--) {
+      const m = itens[i];
+      m.position.z += v * dt;
+      m.rotation.x += m.userData.giro.x * dt;
+      m.rotation.y += m.userData.giro.y * dt;
+      if (m.position.z > -0.9 && m.position.z < 0.9 &&
+          Math.abs(m.position.x - nucleo.position.x) < 1.25 &&
+          Math.abs(m.position.y - nucleo.position.y) < 1.4) {
+        coletar(m); mundo.remove(m); itens.splice(i, 1);
+      } else if (m.position.z > 10) {
+        mundo.remove(m); itens.splice(i, 1);
+      }
+    }
+
+    grade.position.z = (grade.position.z + v * dt) % 4;
+  }
+
+  for (let i = faiscas.length - 1; i >= 0; i--) {
+    const f = faiscas[i];
+    f.userData.vida -= dt;
+    f.position.addScaledVector(f.userData.v, dt);
+    f.scale.setScalar(Math.max(0.01, f.userData.vida / 0.55));
+    if (f.userData.vida <= 0) { mundo.remove(f); faiscas.splice(i, 1); }
+  }
+
+  brilho.position.set(nucleo.position.x, nucleo.position.y + 0.5, 1.5);
+  tremor = Math.max(0, tremor - dt * 1.6);
+  camera.position.x = nucleo.position.x * mundo.scale.x * 0.22 + (Math.random() - 0.5) * tremor;
+  camera.position.y = 2.2 + (Math.random() - 0.5) * tremor;
+
+  renderer.render(scene, camera);
+});
+
+// ponytail: única checagem do combo — abra jogo.html#test e veja o console
+if (location.hash === "#test") {
+  const a = acumular([], 0), b = acumular(a.seq, 1), c = acumular(b.seq, 2);
+  console.assert(!a.bonus && !b.bonus && c.bonus && c.seq.length === 0, "3 pilares distintos = bônus");
+  const d = acumular(acumular([], 1).seq, 1);
+  console.assert(!d.bonus && d.seq.length === 1, "repetir pilar reinicia a sequência");
+  console.log("testes do combo ok");
+}
+</script>
+</body>
+</html>
