@@ -213,7 +213,7 @@
     function startCarousel() {
       clearInterval(timer);
       if (!reduceMotion) {
-        timer = setInterval(function () { showSlide(current + 1); }, 5600);
+        timer = setInterval(function () { showSlide(current + 1); }, 3600);
       }
     }
 
