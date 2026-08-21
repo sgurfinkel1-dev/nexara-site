@@ -192,7 +192,7 @@
     }
     function startCarousel() {
       clearInterval(timer);
-      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (!reduceMotion) {
         timer = setInterval(function () { showSlide(current + 1); }, 5600);
       }
     }

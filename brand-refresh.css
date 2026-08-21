@@ -137,7 +137,7 @@ body { background: var(--navy-900); }
   .testimonial-grid article { min-height: 260px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 721px) {
   .hero-slide, .hero-slide img, .hero-content { transition: none !important; }
   .hero-reveal-cue span { animation: none; }
 }
