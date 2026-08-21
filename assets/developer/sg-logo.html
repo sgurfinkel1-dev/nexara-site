@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&G Animated Logo - Component</title>
+    <style>
+        /* Fundo totalmente transparente para se adaptar a qualquer site */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: transparent; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Texto ajustado para se comportar como parte de um logótipo */
+        #overlay {
+            position: absolute;
+            bottom: 5%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .brand-text {
+            color: #1a1a1a; /* Escuro por padrão, pode ser ajustado dependendo do site final */
+            font-size: clamp(0.8rem, 3vw, 1.5rem); /* Texto responsivo */
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 1.5s ease 1s forwards;
+            text-shadow: 0px 2px 10px rgba(255,255,255,0.5); /* Sombra clara para garantir leitura em fundos escuros */
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+    
+    <div id="overlay">
+        <div class="brand-text">website development and technology</div>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+        import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+        import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+        // 1. Configuração da Cena (Transparente)
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+
+        // Câmera mais próxima e ajustada para formato "Logótipo"
+        const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 1.5, 12); 
+
+        // Alpha: true garante o fundo transparente
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.1;
+        container.appendChild(renderer.domElement);
+
+        // Controlos restritos: não permite zoom nem arrastar, apenas leve rotação
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.enablePan = false;
+        controls.enableZoom = false; // Essencial para não bugar o scroll do site
+        controls.minAzimuthAngle = -Math.PI / 4; // Limita a rotação lateral
+        controls.maxAzimuthAngle = Math.PI / 4;
+        controls.minPolarAngle = Math.PI / 3; // Limita a rotação vertical
+        controls.maxPolarAngle = Math.PI / 2; 
+
+        // 2. Iluminação
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2); 
+        scene.add(ambientLight);
+
+        const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.5);
+        dirLight1.position.set(5, 10, 7);
+        scene.add(dirLight1);
+
+        const dirLight2 = new THREE.DirectionalLight(0xedf2ff, 1.5);
+        dirLight2.position.set(-8, 4, 3);
+        scene.add(dirLight2);
+
+        const spotLight = new THREE.SpotLight(0xffffff, 3);
+        spotLight.position.set(0, 15, 5);
+        spotLight.angle = Math.PI / 4;
+        spotLight.penumbra = 0.5;
+        scene.add(spotLight);
+
+        // 3. Materiais
+        const lightMetal = new THREE.MeshStandardMaterial({
+            color: 0xdddddd, metalness: 0.7, roughness: 0.2,
+        });
+
+        const screenMaterial = new THREE.MeshPhysicalMaterial({
+            color: 0x111111, metalness: 0.5, roughness: 0.1, clearcoat: 1.0, clearcoatRoughness: 0.05,
+        });
+
+        // S e G em Laranja
+        const orangeMaterial = new THREE.MeshStandardMaterial({
+            color: 0xff6d00, metalness: 0.4, roughness: 0.2,
+        });
+
+        // & em Verde
+        const greenMaterial = new THREE.MeshStandardMaterial({
+            color: 0x00c853, metalness: 0.4, roughness: 0.2,
+        });
+
+        // 4. Construção do Portátil Minimalista
+        const laptopGroup = new THREE.Group();
+        scene.add(laptopGroup);
+
+        const baseGeo = new RoundedBoxGeometry(8, 0.3, 5.5, 4, 0.1);
+        const baseMesh = new THREE.Mesh(baseGeo, lightMetal);
+        baseMesh.position.y = -0.15;
+        laptopGroup.add(baseMesh);
+
+        const keyboardGeo = new THREE.BoxGeometry(7, 0.31, 2.5);
+        const keyboardMesh = new THREE.Mesh(keyboardGeo, new THREE.MeshStandardMaterial({color: 0xb0b0b0, roughness: 0.6}));
+        keyboardMesh.position.set(0, -0.15, -0.5);
+        laptopGroup.add(keyboardMesh);
+
+        const hingeGeo = new THREE.CylinderGeometry(0.15, 0.15, 6, 16);
+        const hingeMesh = new THREE.Mesh(hingeGeo, lightMetal);
+        hingeMesh.rotation.z = Math.PI / 2;
+        hingeMesh.position.set(0, 0, -2.6);
+        laptopGroup.add(hingeMesh);
+
+        const lidGroup = new THREE.Group();
+        lidGroup.position.set(0, 0, -2.6);
+        laptopGroup.add(lidGroup);
+
+        const lidGeo = new RoundedBoxGeometry(8, 5.2, 0.2, 4, 0.1);
+        const lidMesh = new THREE.Mesh(lidGeo, lightMetal);
+        lidMesh.position.set(0, 2.6, 0); 
+        lidGroup.add(lidMesh);
+
+        const displayGeo = new THREE.PlaneGeometry(7.6, 4.8);
+        const displayMesh = new THREE.Mesh(displayGeo, screenMaterial);
+        displayMesh.position.set(0, 2.6, 0.11); 
+        lidGroup.add(displayMesh);
+
+        lidGroup.rotation.x = Math.PI / 2; 
+
+        // 5. Carregar Fonte e Criar Texto 3D
+        const loader = new FontLoader();
+        let meshS, meshAmp, meshG;
+        let animationStarted = false;
+
+        loader.load('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_bold.typeface.json', function (font) {
+            
+            const textOptions = {
+                font: font, size: 2.2, height: 0.6, curveSegments: 12,
+                bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.04, bevelOffset: 0, bevelSegments: 5
+            };
+
+            // S Laranja
+            const geoS = new TextGeometry('S', textOptions);
+            geoS.computeBoundingBox();
+            meshS = new THREE.Mesh(geoS, orangeMaterial); 
+            meshS.position.set(-3.5, 10, 0); 
+            laptopGroup.add(meshS); 
+
+            // & Verde
+            const geoAmp = new TextGeometry('&', { ...textOptions, size: 1.8, height: 0.8 });
+            geoAmp.computeBoundingBox();
+            meshAmp = new THREE.Mesh(geoAmp, greenMaterial); 
+            meshAmp.position.set(-0.8, 10, 1.5); 
+            laptopGroup.add(meshAmp);
+
+            // G Laranja
+            const geoG = new TextGeometry('G', textOptions);
+            geoG.computeBoundingBox();
+            meshG = new THREE.Mesh(geoG, orangeMaterial); 
+            meshG.position.set(1.5, 10, 0);
+            laptopGroup.add(meshG);
+
+            laptopGroup.position.y = -1;
+            laptopGroup.rotation.y = -0.2; 
+
+            animationStarted = true;
+        });
+
+        // 6. Ciclo de Animação
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const elapsedTime = clock.getElapsedTime();
+
+            if (animationStarted) {
+                // Abrir o portátil 
+                const targetLidAngle = -0.2;
+                lidGroup.rotation.x += (targetLidAngle - lidGroup.rotation.x) * 0.04; // Um pouco mais rápido para formato de logo
+
+                // Letras caem e flutuam
+                if (lidGroup.rotation.x < 0.5) { 
+                    const floatY_S = 0.5 + Math.sin(elapsedTime * 2) * 0.1;
+                    const floatY_Amp = 0.5 + Math.sin(elapsedTime * 2.5 + 1) * 0.15;
+                    const floatY_G = 0.5 + Math.sin(elapsedTime * 2 + 2) * 0.1;
+
+                    meshS.position.y += (floatY_S - meshS.position.y) * 0.06;
+                    meshAmp.position.y += (floatY_Amp - meshAmp.position.y) * 0.05;
+                    meshG.position.y += (floatY_G - meshG.position.y) * 0.06;
+
+                    meshAmp.rotation.y = Math.sin(elapsedTime * 0.8) * 0.3;
+                }
+
+                // Flutuação geral
+                laptopGroup.position.y = -1 + Math.sin(elapsedTime * 1.5) * 0.15;
+                laptopGroup.rotation.x = Math.sin(elapsedTime * 0.5) * 0.03;
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // 7. Lidar com o Redimensionamento (Crucial para Iframes)
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    </script>
+</body>
+</html>

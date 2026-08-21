@@ -301,6 +301,9 @@ p { margin: 0; }
 .footer-nav a { transition: color 0.2s; }
 .footer-nav a:hover { color: var(--orange-hi); }
 .footer-copy { color: var(--muted); font-size: 0.82rem; }
+.developer-credit { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); font-size: 0.78rem; }
+.developer-credit iframe { width: 132px; height: 68px; border: 0; background: transparent; display: block; }
+@media (max-width: 600px) { .developer-credit { flex-direction: column; gap: 2px; } }
 
 /* ===== Reveal animation ===== */
 .no-js .reveal { opacity: 1; transform: none; }
