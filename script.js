@@ -5,6 +5,7 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches && window.innerWidth > 720;
   var hasIO = "IntersectionObserver" in window;
 
+  // Header state, progress and desktop parallax.
   var header = document.querySelector(".site-header");
   var progress = document.getElementById("progress");
   var emblem = document.querySelector(".beth-emblem");
@@ -34,6 +35,7 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", parallax, { passive: true });
 
+  // Muted inline hero playback for mobile browsers.
   var heroVideo = document.querySelector(".hero-video");
   var heroPlay = document.querySelector(".hero-play");
   if (heroVideo) {
@@ -43,18 +45,23 @@
     heroVideo.muted = true;
     heroVideo.setAttribute("muted", "");
     heroVideo.setAttribute("playsinline", "");
+
     var startHeroVideo = function () {
       var play = heroVideo.play();
       if (play && typeof play.catch === "function") {
-        play.catch(function () { if (heroPlay) heroPlay.hidden = false; });
+        play.catch(function () {
+          if (heroPlay) heroPlay.hidden = false;
+        });
       }
       heroVideo.classList.add("is-ready");
     };
+
     heroVideo.addEventListener("loadedmetadata", startHeroVideo, { once: true });
     heroVideo.addEventListener("canplay", startHeroVideo, { once: true });
     document.addEventListener("visibilitychange", function () {
       if (!document.hidden) startHeroVideo();
     });
+
     if (heroPlay) {
       heroPlay.addEventListener("click", function () {
         heroVideo.muted = true;
@@ -66,6 +73,7 @@
     }
   }
 
+  // Mobile menu.
   var toggle = document.querySelector(".nav-toggle");
   var menu = document.getElementById("menu");
   if (toggle && menu) {
@@ -82,6 +90,7 @@
     });
   }
 
+  // Scroll reveals reset offscreen and replay on every entrance.
   var revealEls = document.querySelectorAll(
     ".scroll-copy, .section-title, .section-lead, .card, .method, .modal, .size, .journey, .ba-item, .fact, .step-num, .stat-panel, .check-list, .beth-emblem, .paper-body, .cost-bars, .promo-video-shell, .identity-grid article, .service-grid article, .action-grid a, .testimonial-grid article, .partner-form"
   );
@@ -100,7 +109,11 @@
 
   var bars = document.querySelectorAll(".cost-bar");
   var dividers = document.querySelectorAll(".divider");
-  function showImmediately(el) { el.classList.add("in"); }
+
+  function showImmediately(el) {
+    el.classList.add("in");
+  }
+
   function observeReplay(elements, options) {
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -120,10 +133,12 @@
     observeReplay(dividers, { threshold: 0.35 });
   }
 
+  // Active navigation link.
   var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-list a[href^='#']"));
   var sections = navLinks.map(function (link) {
     return document.querySelector(link.getAttribute("href"));
   }).filter(Boolean);
+
   if (hasIO && sections.length) {
     var navObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -137,8 +152,12 @@
     sections.forEach(function (section) { navObserver.observe(section); });
   }
 
+  // Research counters also replay when the user returns to the section.
   var countRuns = new WeakMap();
-  function cancelCount(el) { countRuns.set(el, (countRuns.get(el) || 0) + 1); }
+  function cancelCount(el) {
+    countRuns.set(el, (countRuns.get(el) || 0) + 1);
+  }
+
   function animateCount(el) {
     var target = parseInt(el.getAttribute("data-count"), 10);
     if (isNaN(target)) return;
@@ -146,6 +165,7 @@
     countRuns.set(el, run);
     var duration = 1100;
     var start = performance.now();
+
     function tick(now) {
       if (countRuns.get(el) !== run) return;
       var value = Math.min((now - start) / duration, 1);

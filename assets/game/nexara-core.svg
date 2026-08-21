@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Núcleo da Órbita Nexara">
+  <defs><radialGradient id="g"><stop stop-color="#F9F3EA"/><stop offset=".56" stop-color="#CD5320"/><stop offset="1" stop-color="#E30B5D" stop-opacity=".05"/></radialGradient></defs>
+  <circle cx="80" cy="80" r="57" fill="none" stroke="#F9F3EA" stroke-opacity=".38" stroke-width="2"/>
+  <circle cx="80" cy="80" r="39" fill="none" stroke="#CD5320" stroke-width="5" stroke-dasharray="80 32"/>
+  <circle cx="80" cy="80" r="24" fill="url(#g)"/>
+</svg>
