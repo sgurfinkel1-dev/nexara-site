@@ -240,6 +240,37 @@
     startCarousel();
   }
 
+  // Submit without leaving the page and surface delivery errors instead of failing silently.
+  var partnerForm = document.querySelector(".partner-form");
+  var partnerStatus = document.getElementById("form-status");
+  if (partnerForm && partnerStatus && window.fetch && window.FormData) {
+    partnerForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var submit = partnerForm.querySelector("button[type='submit']");
+      var endpoint = partnerForm.action.replace("formsubmit.co/", "formsubmit.co/ajax/");
+      partnerStatus.textContent = "Enviando sua mensagem…";
+      if (submit) submit.disabled = true;
+
+      fetch(endpoint, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(partnerForm)
+      }).then(function (response) {
+        return response.json().then(function (data) {
+          if (!response.ok || data.success === "false" || data.success === false) {
+            throw new Error(data.message || "Falha no envio");
+          }
+          partnerForm.reset();
+          partnerStatus.textContent = "Mensagem enviada. A equipe Nexara entrará em contato.";
+        });
+      }).catch(function () {
+        partnerStatus.innerHTML = "Não foi possível confirmar o envio. Escreva para <a href='mailto:contato@nexaraconsulting.com.br'>contato@nexaraconsulting.com.br</a>.";
+      }).finally(function () {
+        if (submit) submit.disabled = false;
+      });
+    });
+  }
+
   if (new URLSearchParams(window.location.search).get("form") === "sucesso") {
     var formStatus = document.getElementById("form-status");
     if (formStatus) formStatus.textContent = "Mensagem enviada. A equipe Nexara entrará em contato.";
