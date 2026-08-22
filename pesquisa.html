@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Pesquisa Nacional do Ecossistema Humano Escolar 2026, da Nexara Consulting." />
+  <title>Pesquisa Nacional 2026 · Nexara Consulting</title>
+  <link rel="icon" href="assets/nexara-mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="pesquisa.css?v=5.1" />
+</head>
+<body>
+  <header class="survey-header">
+    <a href="index.html" aria-label="Voltar ao site da Nexara"><img src="assets/logos/nexara-horizontal-white.svg" alt="Nexara Consulting" /></a>
+    <span>Pesquisa Nacional 2026</span>
+  </header>
+
+  <main class="survey-main">
+    <div class="progress-shell" id="progressShell" hidden>
+      <div class="progress-copy"><span id="progressLabel">Etapa 1 de 7</span><span id="saveStatus" role="status">Salvo neste dispositivo</span></div>
+      <div class="progress-track" aria-hidden="true"><i id="progressBar"></i></div>
+    </div>
+
+    <section class="survey-screen opening active" data-screen="1" aria-labelledby="openingTitle">
+      <div class="opening-mark"><img src="assets/nexara-mark.svg" alt="" /></div>
+      <p class="eyebrow">Pesquisa Nacional do Ecossistema Humano Escolar 2026</p>
+      <h1 id="openingTitle">A estrutura humana que sustenta a escola.</h1>
+      <p class="lead">Este estudo investiga como as escolas privadas brasileiras organizam pessoas, estratégia e governança, e como isso aparece na experiência de professores, colaboradores, famílias e alunos.</p>
+      <div class="opening-grid">
+        <article><strong>7 a 9 minutos</strong><span>Tempo de resposta</span></article>
+        <article><strong>Situação atual</strong><span>Não existem respostas certas ou erradas</span></article>
+        <article><strong>Relatório antecipado</strong><span>Quem responde recebe antes da publicação aberta</span></article>
+      </div>
+      <div class="confidentiality">Os resultados serão publicados de forma agregada. Nenhuma escola ou respondente será identificado na divulgação dos resultados.</div>
+      <button class="button primary" id="startSurvey" type="button">Começar</button>
+      <p class="legal-copy">Ao continuar, você concorda com o uso das suas respostas conforme a <a href="privacidade-pesquisa.html" target="_blank" rel="noopener">nota de privacidade</a>.</p>
+    </section>
+
+    <form id="surveyForm" novalidate>
+      <section class="survey-screen" data-screen="2" aria-labelledby="screen2Title">
+        <p class="eyebrow">Escola e respondente</p><h2 id="screen2Title">Para comparar escolas com contextos semelhantes.</h2>
+        <div class="questions-grid" id="screen2Questions"></div>
+      </section>
+
+      <section class="survey-screen" data-screen="3" aria-labelledby="screen3Title">
+        <p class="eyebrow">O que a escola tem instalado</p><h2 id="screen3Title">O que existe hoje — não o que funciona bem.</h2>
+        <p class="screen-note">Responder “não existe” é comum e é uma informação valiosa para o estudo.</p>
+        <div class="questions-grid" id="screen3Questions"></div>
+      </section>
+
+      <section class="survey-screen" data-screen="4" aria-labelledby="screen4Title">
+        <p class="eyebrow">Pessoas, comunidade e resultado</p><h2 id="screen4Title">Responda a partir do que você observa.</h2>
+        <p class="screen-note">Não é preciso ter dados para responder. Quando não tiver como avaliar, use “Não sei”.</p>
+        <div class="scale-legend"><span>1 Discordo totalmente</span><span>2 Discordo</span><span>3 Neutro</span><span>4 Concordo</span><span>5 Concordo totalmente</span><span class="unknown">NS Não sei</span></div>
+        <div class="likert-list" id="screen4Questions"></div>
+      </section>
+
+      <section class="survey-screen" data-screen="5" aria-labelledby="screen5Title">
+        <p class="eyebrow">Cultura, estratégia e governança</p><h2 id="screen5Title">Como as decisões aparecem no cotidiano.</h2>
+        <p class="screen-note">Responda a partir do que você observa na escola. Não é preciso ter dados para responder.</p>
+        <div class="scale-legend"><span>1 Discordo totalmente</span><span>2 Discordo</span><span>3 Neutro</span><span>4 Concordo</span><span>5 Concordo totalmente</span><span class="unknown">NS Não sei</span></div>
+        <div class="likert-list" id="screen5Questions"></div>
+      </section>
+
+      <section class="survey-screen" data-screen="6" aria-labelledby="screen6Title">
+        <p class="eyebrow">Distância percebida</p><h2 id="screen6Title">Como outros grupos avaliariam a escola?</h2>
+        <p class="screen-note">Considere como a escola trata as pessoas, comunica, decide e conduz conflitos.</p>
+        <div id="screen6Questions"></div>
+      </section>
+
+      <section class="survey-screen" data-screen="7" aria-labelledby="screen7Title">
+        <p class="eyebrow">Como a escola age</p><h2 id="screen7Title">Escolha o que mais se aproxima do que costuma acontecer.</h2>
+        <p class="screen-note">Aqui não existe escala. Mesmo que nenhuma opção descreva com exatidão, escolha a mais próxima.</p>
+        <div class="questions-grid" id="screen7Questions"></div>
+      </section>
+
+      <section class="survey-screen" data-screen="8" aria-labelledby="screen8Title">
+        <p class="eyebrow">Para onde enviamos os resultados</p><h2 id="screen8Title">A publicação é confidencial; a coleta é identificada.</h2>
+        <p class="screen-note">O nome serve para reunir respostas da mesma instituição e enviar a leitura individual. Nenhuma escola ou respondente é identificado na divulgação.</p>
+        <div class="questions-grid" id="screen8Questions"></div>
+      </section>
+
+      <div class="survey-actions" id="surveyActions" hidden>
+        <button class="button secondary" id="backButton" type="button">Voltar</button>
+        <p class="validation-message" id="validationMessage" role="alert"></p>
+        <button class="button primary" id="nextButton" type="button">Continuar</button>
+      </div>
+    </form>
+
+    <section class="survey-screen closing" data-screen="9" aria-labelledby="closingTitle">
+      <div class="success-mark" aria-hidden="true">✓</div>
+      <p class="eyebrow">Resposta registrada</p><h2 id="closingTitle">Obrigada por participar.</h2>
+      <p>O relatório fica pronto em outubro e você recebe antes da publicação aberta.</p>
+      <p>Se você marcou a conversa sobre os números da sua escola, Beth entra em contato para agendar. A agenda vai até 30 de setembro e a prioridade é de escolas com mais de uma liderança respondendo.</p>
+      <div class="result-context">Os indicadores de resultado percebido refletem a percepção de quem lidera a escola, não dados auditados de RH ou pesquisa formal com famílias.</div>
+      <button class="button primary" id="copyLink" type="button">Copiar o link</button>
+      <a class="button secondary" href="index.html">Voltar ao site</a>
+      <p class="copy-status" id="copyStatus" role="status"></p>
+    </section>
+  </main>
+
+  <script src="pesquisa-config.js?v=5.1"></script>
+  <script src="pesquisa.js?v=5.2" defer></script>
+</body>
+</html>
