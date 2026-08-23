@@ -346,8 +346,8 @@ p { margin: 0; }
   .beth-mark { width: 92px; }
   .js .reveal.in { animation-duration: .55s; transition-duration: .45s; }
   .cost-fill { transition-duration: .75s; }
-  .promo-copy { text-align: left; }
-  .promo-copy .section-lead { margin-left: 0; }
+  .promo-copy { text-align: center; }
+  .promo-copy .section-lead { margin-left: auto; margin-right: auto; }
   .promo-video-shell { margin-top: 26px; padding: 4px; border-radius: 14px; }
   .promo-video { border-radius: 10px; }
 }
