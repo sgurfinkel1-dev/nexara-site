@@ -253,6 +253,7 @@ p { margin: 0; }
     var(--navy-900);
 }
 .promo-copy { text-align: center; }
+.promo-copy .section-title { margin-left: auto; margin-right: auto; text-align: center; }
 .promo-copy .section-lead { margin: 18px auto 0; }
 .promo-video-shell {
   position: relative;
