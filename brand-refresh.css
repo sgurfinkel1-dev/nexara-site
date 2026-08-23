@@ -30,6 +30,9 @@ body { background: var(--navy-900); }
 .nav-group a { color: var(--muted); font-size: .78rem; white-space: normal; }
 .nav-group a:hover { color: var(--cream); }
 .nav-group .btn { width: fit-content; margin-top: 8px; padding: 10px 15px; color: #fff; }
+.nav-info-bar { max-width: 1480px; margin: 0 auto; padding: 15px 18px; display: flex; align-items: center; justify-content: center; gap: 16px; border-top: 1px solid rgba(249,243,234,.12); background: rgba(23,16,36,.42); color: var(--muted); font-size: .76rem; }
+.nav-info-bar strong { color: var(--cream); }
+.nav-info-bar a { color: var(--orange-hi); font-weight: 700; }
 
 .hero.hero-carousel {
   min-height: 100svh;
@@ -198,6 +201,7 @@ body { background: var(--navy-900); }
   .nav-panel { inset: 72px 0 0; overflow-y: auto; padding: 0 22px 28px; }
   .nav-list { position: static; height: auto; transform: none; padding: 28px 0; grid-template-columns: 1fr; gap: 28px; background: none; border: 0; }
   .nav-group { gap: 11px; }
+  .nav-info-bar { align-items: flex-start; flex-direction: column; gap: 6px; margin-top: 4px; padding: 16px 0; }
   .principles-grid, .methods-block .method-grid { grid-template-columns: 1fr; }
   .principles-grid article { min-height: 0; }
 }

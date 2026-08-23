@@ -39,8 +39,8 @@ function doPost(e) {
       const dimRowNumber = upsertRow_(dimSheet, dimMatch.row, dimValues);
 
       SpreadsheetApp.flush();
-      if (payload.completo && !wasComplete) sendConfirmationEmails_(payload);
-      return json_({ ok: true, user_id: payload.user_id, completo: Boolean(payload.completo), raw_row: rawRowNumber, dimension_row: dimRowNumber, saved_at: new Date().toISOString() });
+      const emailSent = payload.completo && !wasComplete ? sendConfirmationEmails_(payload) : false;
+      return json_({ ok: true, user_id: payload.user_id, completo: Boolean(payload.completo), email_sent: emailSent, raw_row: rawRowNumber, dimension_row: dimRowNumber, saved_at: new Date().toISOString() });
     } finally {
       lock.releaseLock();
     }
@@ -158,7 +158,10 @@ function structureScore_(p) {
 
 function sendConfirmationEmails_(payload) {
   const p = payload.responses || {};
-  if (!p.P40) return;
+  if (!p.P40) {
+    console.warn('Resposta concluída sem e-mail P40; confirmação não enviada.');
+    return false;
+  }
   const name = p.P39 || 'participante';
   const school = p.P41 || 'sua escola';
   const shareUrl = `${CONFIG.PUBLIC_FORM_URL}?origem=indicacao_respondente`;
@@ -168,19 +171,20 @@ function sendConfirmationEmails_(payload) {
     'Uma informação que talvez ajude enquanto isso: o estudo compara escolas por porte, por trajetória de matrículas e por posição de quem responde. A parte mais reveladora é a diferença de percepção entre pessoas da mesma escola.', '',
     `Se outra pessoa da liderança da ${school} responder, sua escola passa a ter essa comparação disponível na leitura individual. O link é este: ${shareUrl}`, '',
     'Os indicadores de resultado percebido refletem a percepção de quem lidera a escola, não dados auditados de RH ou pesquisa formal com famílias.', '',
-    'Um abraço,', 'Beth Loureiro',
+    'Um abraço,', 'Equipe Nexara Consulting',
   ].join('\n');
-  MailApp.sendEmail({ to: p.P40, subject: 'Sua resposta foi registrada · Pesquisa Nacional do Ecossistema Humano Escolar', body: confirmation, name: 'Beth Loureiro · Nexara Consulting', replyTo: CONFIG.REPLY_TO });
+  MailApp.sendEmail({ to: p.P40, subject: 'Sua resposta foi registrada · Pesquisa Nacional do Ecossistema Humano Escolar', body: confirmation, name: 'Equipe Nexara · Nexara Consulting', replyTo: CONFIG.REPLY_TO });
 
   if (p.P44 === 'Sim, quero agendar a conversa') {
     const conversation = [
       `Olá, ${name}.`, '', `Registrei seu interesse na leitura dos números da ${school}.`, '',
       'São 45 minutos, online, sobre os dados que você respondeu comparados ao que estou vendo nas demais escolas. A agenda vai até 30 de setembro.', '',
       `A prioridade é de escolas com mais de uma liderança respondendo. Se quiser garantir isso, encaminhe o link para mais alguém da equipe: ${shareUrl}`, '',
-      'Entro em contato pelo WhatsApp para combinarmos o horário.', '', 'Um abraço,', 'Beth Loureiro',
+      'Entro em contato pelo WhatsApp para combinarmos o horário.', '', 'Um abraço,', 'Equipe Nexara Consulting',
     ].join('\n');
-    MailApp.sendEmail({ to: p.P40, subject: `Sobre a leitura dos números da ${school}`, body: conversation, name: 'Beth Loureiro · Nexara Consulting', replyTo: CONFIG.REPLY_TO });
+    MailApp.sendEmail({ to: p.P40, subject: `Sobre a leitura dos números da ${school}`, body: conversation, name: 'Equipe Nexara · Nexara Consulting', replyTo: CONFIG.REPLY_TO });
   }
+  return true;
 }
 
 function json_(value) {
