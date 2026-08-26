@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const STORAGE_KEY = "nexaraPesquisaNacional2026v5";
+  const STORAGE_KEY = "nexaraPesquisaNacional2026v6";
   const params = new URLSearchParams(location.search);
   const origin = params.get("origem") || "direto";
   const endpoint = window.NEXARA_SURVEY_ENDPOINT || "";
@@ -26,23 +26,23 @@
     3: [
       { id:"P7", label:"Como está organizada a área de pessoas na sua escola?", type:"radio", options:["RH estruturado, com atuação além da rotina trabalhista","Departamento pessoal, com foco em folha, admissão e desligamento","A função é acumulada por alguém de outra área","Não existe função formal de pessoas","Não sei informar"], required:true },
       { id:"P8-P15", type:"matrix", required:true, options:installedOptions, rows:[
-        ["P8","Acompanhamento periódico da rotatividade de professores"],
-        ["P9","Escuta formal e periódica dos professores, com registro e devolutiva"],
-        ["P10","Avaliação de fatores de risco psicossocial incorporada ao inventário de riscos do PGR, conforme a NR-1"],
-        ["P11","Plano de ação documentado a partir dessa avaliação, com responsáveis e prazos"],
-        ["P12","Descrição de cargos e critérios formalizados de progressão salarial"],
-        ["P13","Medição periódica da satisfação das famílias"],
-        ["P14","Canal formal para relatos, conflitos e denúncias"],
-        ["P15","Rituais fixos de liderança, com pauta e registro de decisões"],
+        ["P8","A gestão de pessoas acompanha periodicamente a rotatividade (turnover) de professores"],
+        ["P9","A liderança ouve os professores de forma periódica, com registro do que foi dito e retorno sobre os encaminhamentos"],
+        ["P10","Existe avaliação de fatores de risco psicossocial incorporada ao inventário de riscos do PGR, conforme a NR-1"],
+        ["P11","Depois da avaliação de risco psicossocial, existe um plano de ação escrito, com prazo e responsável por cada ação"],
+        ["P12","Os cargos têm descrição clara do que fazem, e existe um critério definido de como e quando alguém progride para um cargo ou nível salarial superior"],
+        ["P13","A direção realiza pesquisa periódica sobre a satisfação das famílias"],
+        ["P14","Existe um canal formal para relatos, conflitos e denúncias"],
+        ["P15","A liderança tem reuniões fixas, com pauta e registro de decisões, que conectam mantenedor/direção, coordenação e professores"],
       ]},
     ],
     4: [
       ["P16","Os professores têm clareza sobre o que a escola espera do trabalho deles."],
       ["P17","A liderança direta dos professores está preparada para conduzir as equipes."],
-      ["P18","As decisões sobre carga, rotina e prazos consideram o efeito sobre a saúde dos professores."],
-      ["P19","As decisões sobre carga, rotina e prazos consideram o efeito sobre a saúde dos demais colaboradores."],
+      ["P18","Ao definir carga de trabalho, rotina e prazos, a liderança leva em conta o efeito sobre o bem-estar psicológico dos professores."],
+      ["P19","Ao definir carga de trabalho, rotina e prazos, a liderança leva em conta o efeito sobre o bem-estar psicológico dos demais colaboradores."],
       ["P20","As pessoas que trabalham na escola sentem que fazem parte da construção dela."],
-      ["P21","A comunicação da escola com as famílias é clara e consistente."],
+      ["P21","A escola comunica às famílias sempre da mesma forma e com a mesma mensagem, independente de quem fala."],
       ["P22","As famílias percebem coerência entre o que a escola promete e o que entrega."],
       ["P23","Os alunos encontram na escola condições para desenvolver pertencimento."],
       ["P24","A escola consegue manter os professores que considera essenciais para sua operação."],
@@ -52,12 +52,12 @@
       ["P26","Existe coerência entre os valores que a escola declara e aquilo que ela pratica."],
       ["P27","Decisões importantes são comunicadas sem que a equipe compreenda com clareza os critérios que levaram a elas."],
       ["P28","A escola tem clareza sobre suas prioridades para os próximos dois anos."],
-      ["P29","O crescimento da escola é planejado considerando a capacidade de sustentar a operação e as pessoas."],
+      ["P29","Antes de decidir crescer, a escola avalia se as pessoas atuais conseguem sustentar esse crescimento."],
       ["P30","Boa parte das prioridades definidas no ano passado não saiu do papel."],
-      ["P31","As decisões são tomadas por quem tem responsabilidade e autoridade para tomá-las."],
+      ["P31","Quem toma uma decisão importante na escola também é quem responde pelo resultado dela."],
       ["P32","Assuntos que poderiam ser resolvidos por outras pessoas chegam à direção com frequência."],
     ].map(([id,label]) => ({ id,label,type:"likert",required:true })),
-    6: [{ id:"P33", type:"matrix", required:true, label:"Se esses grupos avaliassem a escola considerando esses aspectos, como você imagina que eles responderiam?", options:["Mais positivas que as minhas","Semelhantes às minhas","Mais críticas que as minhas","Não sei dizer"], rows:[["professores","Os professores"],["colaboradores","Os demais colaboradores"],["familias","As famílias"],["alunos","Os alunos"]] }],
+    6: [{ id:"P33", type:"matrix", required:true, label:"Pense em como você avaliou a escola até aqui: a forma como ela trata as pessoas, comunica, decide e conduz conflitos. Se esses grupos avaliassem a escola considerando esses aspectos, como você imagina que eles responderiam?", options:["Mais positivas que as minhas","Semelhantes às minhas","Mais críticas que as minhas","Não sei dizer"], rows:[["professores","Os professores"],["colaboradores","Os demais colaboradores"],["familias","As famílias"],["alunos","Os alunos"]] }],
     7: [
       { id:"P34", label:"Quando surge um problema relevante na escola, o que normalmente acontece primeiro?", type:"radio", options:["A liderança decide rapidamente","A equipe envolvida é chamada para discutir","O problema é analisado antes da decisão","Cada área tenta resolver a própria parte","O problema circula entre várias pessoas antes de alguém decidir","A decisão costuma ser adiada"], required:true },
       { id:"P35", label:"Quando surge um conflito entre pessoas ou áreas, o que normalmente acontece?", type:"radio", options:["Os envolvidos tratam diretamente","A liderança intervém","O conflito é discutido coletivamente","É encaminhado para RH ou gestão de pessoas","O conflito é evitado","Costuma permanecer sem solução"], required:true },
@@ -70,8 +70,8 @@
       { id:"P40", label:"E-mail.", type:"email", autocomplete:"email", required:true },
       { id:"P41", label:"Nome da escola.", type:"text", autocomplete:"organization", required:true },
       { id:"P42", label:"Você gostaria de receber o relatório do estudo antes da publicação aberta?", type:"radio", options:["Sim","Não"], required:true },
-      { id:"P43", label:"Indique até duas pessoas da liderança da sua escola que também poderiam responder.", help:"Quando mais de uma liderança da mesma escola responde, é possível comparar as diferentes percepções. Campos opcionais.", type:"emails", required:false },
-      { id:"P44", label:"Você gostaria que eu lesse os números da sua escola com você?", help:"São 45 minutos, online, sobre os dados da sua escola. Não é apresentação de serviços. Agenda limitada a 15 escolas até 30 de setembro.", type:"radio", options:[yesConversation,"Não, quero apenas o relatório do estudo"], required:true },
+      { id:"P43", label:"Indique até duas pessoas da liderança da sua escola que também poderiam responder.", help:"Quando mais de uma liderança da mesma escola responde, é possível comparar as diferentes percepções sobre a mesma instituição. Escolas com mais de uma resposta têm prioridade na devolutiva individual.", type:"emails", required:false },
+      { id:"P44", label:"Você gostaria que eu lesse os números da sua escola com você?", help:"São 45 minutos, online, sobre os dados da sua escola. Não é apresentação de serviços. Agenda limitada a 15 escolas até 30 de setembro, com prioridade para as que tiverem mais de uma resposta.", type:"radio", options:[yesConversation,"Não, quero apenas o relatório do estudo"], required:true },
       { id:"P45", label:"WhatsApp para combinarmos a conversa.", help:"Usado apenas para agendar a conversa. Não entra em lista de disparo.", type:"tel", autocomplete:"tel", required:true, conditional:true },
     ],
   };
@@ -171,7 +171,7 @@
   }
 
   function backendPayload(complete) {
-    return { action:"survey_save", version:"v5", timestamp:new Date().toISOString(), origem:origin, user_id:state.userId, completo:Boolean(complete), current_screen:state.screen, started_at:state.startedAt, elapsed_seconds:Math.round((Date.now() - new Date(state.startedAt).getTime()) / 1000), item_timing_seconds:state.timing, responses:state.responses, page_url:location.href };
+    return { action:"survey_save", version:"v6", timestamp:new Date().toISOString(), origem:origin, user_id:state.userId, completo:Boolean(complete), current_screen:state.screen, started_at:state.startedAt, elapsed_seconds:Math.round((Date.now() - new Date(state.startedAt).getTime()) / 1000), item_timing_seconds:state.timing, responses:state.responses, page_url:location.href };
   }
 
   async function saveToBackend(complete = false) {

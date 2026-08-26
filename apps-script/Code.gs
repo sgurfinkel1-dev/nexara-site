@@ -14,7 +14,7 @@ const DIM_HEADERS = [
 ];
 
 function doGet() {
-  return json_({ ok: true, service: 'Pesquisa Nacional Nexara 2026', version: 'v5' });
+  return json_({ ok: true, service: 'Pesquisa Nacional Nexara 2026', version: 'v6' });
 }
 
 function doPost(e) {
@@ -166,20 +166,20 @@ function sendConfirmationEmails_(payload) {
   const school = p.P41 || 'sua escola';
   const shareUrl = `${CONFIG.PUBLIC_FORM_URL}?origem=indicacao_respondente`;
   const confirmation = [
-    `Olá, ${name}.`, '', 'Obrigada por participar. Sua resposta foi registrada.', '',
-    'O relatório fica pronto em outubro, antes do período em que a maior parte das escolas fecha o planejamento do ano seguinte. Você recebe por aqui, antes da publicação aberta.', '',
-    'Uma informação que talvez ajude enquanto isso: o estudo compara escolas por porte, por trajetória de matrículas e por posição de quem responde. A parte mais reveladora é a diferença de percepção entre pessoas da mesma escola.', '',
+    `Olá, ${name}.`, '',
+    'Obrigada por participar da Pesquisa Nacional do Ecossistema Humano Escolar 2026. Sua resposta foi registrada.', '',
+    'O estudo compara escolas por porte, trajetória de matrículas, estrutura instalada e posição de quem responde. Quando há mais de uma liderança da mesma escola participando, também é possível observar diferenças de percepção dentro da própria instituição.', '',
     `Se outra pessoa da liderança da ${school} responder, sua escola passa a ter essa comparação disponível na leitura individual. O link é este: ${shareUrl}`, '',
-    'Os indicadores de resultado percebido refletem a percepção de quem lidera a escola, não dados auditados de RH ou pesquisa formal com famílias.', '',
-    'Um abraço,', 'Equipe Nexara Consulting',
+    'Se você indicou que gostaria de receber o relatório antes da publicação aberta, ele será enviado para este e-mail em outubro.', '',
+    'Um abraço,', 'Beth Loureiro',
   ].join('\n');
   MailApp.sendEmail({ to: p.P40, subject: 'Sua resposta foi registrada · Pesquisa Nacional do Ecossistema Humano Escolar', body: confirmation, name: 'Equipe Nexara · Nexara Consulting', replyTo: CONFIG.REPLY_TO });
 
   if (p.P44 === 'Sim, quero agendar a conversa') {
     const conversation = [
       `Olá, ${name}.`, '', `Registrei seu interesse na leitura dos números da ${school}.`, '',
-      'São 45 minutos, online, sobre os dados que você respondeu comparados ao que estou vendo nas demais escolas. A agenda vai até 30 de setembro.', '',
-      `A prioridade é de escolas com mais de uma liderança respondendo. Se quiser garantir isso, encaminhe o link para mais alguém da equipe: ${shareUrl}`, '',
+      'A conversa terá aproximadamente 45 minutos, será online e será dedicada aos dados da sua escola em comparação com os padrões observados no estudo. A agenda vai até 30 de setembro, com prioridade para escolas com mais de uma liderança respondendo.', '',
+      `Quando houver mais de uma liderança respondendo pela mesma escola, também poderemos observar onde as percepções convergem e onde divergem. Se quiser garantir isso, encaminhe o link para mais alguém da equipe: ${shareUrl}`, '',
       'Entro em contato pelo WhatsApp para combinarmos o horário.', '', 'Um abraço,', 'Equipe Nexara Consulting',
     ].join('\n');
     MailApp.sendEmail({ to: p.P40, subject: `Sobre a leitura dos números da ${school}`, body: conversation, name: 'Equipe Nexara · Nexara Consulting', replyTo: CONFIG.REPLY_TO });

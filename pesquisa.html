@@ -6,7 +6,7 @@
   <meta name="description" content="Pesquisa Nacional do Ecossistema Humano Escolar 2026, da Nexara Consulting." />
   <title>Pesquisa Nacional 2026 · Nexara Consulting</title>
   <link rel="icon" href="assets/nexara-mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="pesquisa.css?v=5.1" />
+  <link rel="stylesheet" href="pesquisa.css?v=20260825-pesquisa-v6" />
 </head>
 <body>
   <header class="survey-header">
@@ -15,6 +15,18 @@
   </header>
 
   <main class="survey-main">
+    <section class="research-context" aria-labelledby="researchContextTitle">
+      <p class="eyebrow">Pesquisa Nacional 2026</p>
+      <h1 id="researchContextTitle">Ecossistema Humano Escolar</h1>
+      <p>O setor educacional já produz muitos dados sobre aprendizagem, desempenho e resultados financeiros. Ainda sabemos pouco sobre aquilo que sustenta tudo isso: <strong>as pessoas, as relações e a estrutura humana que fazem uma escola funcionar.</strong></p>
+      <p>O estudo investiga quatro jornadas que se cruzam todos os dias dentro de uma escola: <strong>Professor · Colaborador · Família · Aluno</strong>. A governança é analisada a partir de instrumentos combinados, com uma premissa clara: <strong>um bom instrumento também precisa dizer o que não mede.</strong></p>
+      <div class="research-facts" aria-label="Sobre o estudo">
+        <div><strong>45</strong><span>campos</span></div>
+        <div><strong>9</strong><span>telas</span></div>
+        <div><strong>4</strong><span>jornadas</span></div>
+      </div>
+      <p class="research-deadline"><strong>Participe até 30 de setembro de 2026.</strong> Os resultados serão publicados de forma agregada. A participação é confidencial na publicação, não anônima na coleta.</p>
+    </section>
     <div class="progress-shell" id="progressShell" hidden>
       <div class="progress-copy"><span id="progressLabel">Etapa 1 de 7</span><span id="saveStatus" role="status">Salvo neste dispositivo</span></div>
       <div class="progress-track" aria-hidden="true"><i id="progressBar"></i></div>
@@ -30,7 +42,7 @@
         <article><strong>Situação atual</strong><span>Não existem respostas certas ou erradas</span></article>
         <article><strong>Relatório antecipado</strong><span>Quem responde recebe antes da publicação aberta</span></article>
       </div>
-      <div class="confidentiality">Os resultados serão publicados de forma agregada. Nenhuma escola ou respondente será identificado na divulgação dos resultados.</div>
+      <div class="confidentiality">Os resultados serão publicados de forma agregada. Nenhuma escola ou respondente será identificado na divulgação dos resultados; a participação é confidencial na publicação, não anônima na coleta.</div>
       <button class="button primary" id="startSurvey" type="button">Começar</button>
       <p class="legal-copy">Ao continuar, você concorda com o uso das suas respostas conforme a <a href="privacidade-pesquisa.html" target="_blank" rel="noopener">nota de privacidade</a>.</p>
     </section>
@@ -42,28 +54,28 @@
       </section>
 
       <section class="survey-screen" data-screen="3" aria-labelledby="screen3Title">
-        <p class="eyebrow">O que a escola tem instalado</p><h2 id="screen3Title">O que existe hoje — não o que funciona bem.</h2>
-        <p class="screen-note">Responder “não existe” é comum e é uma informação valiosa para o estudo.</p>
+        <p class="eyebrow">O que a escola tem instalado</p><h2 id="screen3Title">Régua de Estrutura Instalada.</h2>
+        <p class="screen-note">As perguntas a seguir são sobre o que existe hoje na escola, não sobre o que funciona bem. Responder “não existe” é comum e é uma informação valiosa para o estudo.</p>
         <div class="questions-grid" id="screen3Questions"></div>
       </section>
 
       <section class="survey-screen" data-screen="4" aria-labelledby="screen4Title">
         <p class="eyebrow">Pessoas, comunidade e resultado</p><h2 id="screen4Title">Responda a partir do que você observa.</h2>
         <p class="screen-note">Não é preciso ter dados para responder. Quando não tiver como avaliar, use “Não sei”.</p>
-        <div class="scale-legend"><span>1 Discordo totalmente</span><span>2 Discordo</span><span>3 Neutro</span><span>4 Concordo</span><span>5 Concordo totalmente</span><span class="unknown">NS Não sei</span></div>
+        <div class="scale-legend"><span>1 Discordo totalmente</span><span>2 Discordo</span><span>3 Nem concordo nem discordo</span><span>4 Concordo</span><span>5 Concordo totalmente</span><span class="unknown">NS Não sei</span></div>
         <div class="likert-list" id="screen4Questions"></div>
       </section>
 
       <section class="survey-screen" data-screen="5" aria-labelledby="screen5Title">
         <p class="eyebrow">Cultura, estratégia e governança</p><h2 id="screen5Title">Como as decisões aparecem no cotidiano.</h2>
         <p class="screen-note">Responda a partir do que você observa na escola. Não é preciso ter dados para responder.</p>
-        <div class="scale-legend"><span>1 Discordo totalmente</span><span>2 Discordo</span><span>3 Neutro</span><span>4 Concordo</span><span>5 Concordo totalmente</span><span class="unknown">NS Não sei</span></div>
+        <div class="scale-legend"><span>1 Discordo totalmente</span><span>2 Discordo</span><span>3 Nem concordo nem discordo</span><span>4 Concordo</span><span>5 Concordo totalmente</span><span class="unknown">NS Não sei</span></div>
         <div class="likert-list" id="screen5Questions"></div>
       </section>
 
       <section class="survey-screen" data-screen="6" aria-labelledby="screen6Title">
         <p class="eyebrow">Distância percebida</p><h2 id="screen6Title">Como outros grupos avaliariam a escola?</h2>
-        <p class="screen-note">Considere como a escola trata as pessoas, comunica, decide e conduz conflitos.</p>
+        <p class="screen-note">Pense em como você avaliou a escola até aqui: a forma como ela trata as pessoas, comunica, decide e conduz conflitos.</p>
         <div id="screen6Questions"></div>
       </section>
 
@@ -75,7 +87,7 @@
 
       <section class="survey-screen" data-screen="8" aria-labelledby="screen8Title">
         <p class="eyebrow">Para onde enviamos os resultados</p><h2 id="screen8Title">A publicação é confidencial; a coleta é identificada.</h2>
-        <p class="screen-note">O nome serve para reunir respostas da mesma instituição e enviar a leitura individual. Nenhuma escola ou respondente é identificado na divulgação.</p>
+        <p class="screen-note">Os resultados são publicados de forma agregada, e nenhuma escola ou respondente é identificado na divulgação. O nome serve apenas para reunir as respostas de quem participa da mesma instituição e para enviar a sua leitura individual — a participação é confidencial na publicação, não anônima na coleta.</p>
         <div class="questions-grid" id="screen8Questions"></div>
       </section>
 
@@ -98,7 +110,7 @@
     </section>
   </main>
 
-  <script src="pesquisa-config.js?v=5.1"></script>
-  <script src="pesquisa.js?v=5.2" defer></script>
+  <script src="pesquisa-config.js?v=6.0"></script>
+  <script src="pesquisa.js?v=20260825-pesquisa-v6" defer></script>
 </body>
 </html>
