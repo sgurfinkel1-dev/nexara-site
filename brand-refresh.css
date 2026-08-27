@@ -240,7 +240,7 @@ h1, h2, h3, h4, .hero-sub, .result-number, .ecosystem-stat strong { font-family:
 .insight-grid span { color: var(--orange-hi); font-weight: 800; letter-spacing: .14em; }
 .insight-grid h3 { margin-top: 26px; color: var(--cream); font-size: 1.25rem; }
 .insight-grid p { margin-top: 12px; color: var(--muted); font-size: .93rem; }
-#servicos { position: relative; isolation: isolate; background: url("assets/hero/reuniao.png") center / cover no-repeat; color: var(--cream); }
+#servicos { position: relative; isolation: isolate; background: url("assets/hero/nexara-photo-team.png") center / cover no-repeat; color: var(--cream); }
 #servicos::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(37,24,58,.96), rgba(37,24,58,.78)); }
 #servicos .section-kicker, #servicos .section-title, #servicos .service-grid h3, #servicos .service-grid p, #servicos .service-grid span { color: var(--cream); }
 #servicos .service-grid { border-color: rgba(249,243,234,.26); background: rgba(37,24,58,.28); }
