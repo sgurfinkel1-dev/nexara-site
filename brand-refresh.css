@@ -233,6 +233,10 @@ h1, h2, h3, h4, .hero-sub, .result-number, .ecosystem-stat strong { font-family:
 .ecosystem-stat strong { display: block; color: var(--pink); font-size: clamp(3.5rem, 6vw, 5rem); line-height: .9; }
 .ecosystem-stat span { display: block; margin-top: 10px; color: var(--ink); font-size: 1.1rem; font-weight: 800; }
 .ecosystem-stat p { margin-top: 8px; color: rgba(37,24,58,.68); font-size: .92rem; }
+.ecosystem-visuals { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:24px; }
+.ecosystem-visuals figure { margin:0; padding:14px; border:1px solid rgba(37,24,58,.12); border-radius:var(--radius); background:rgba(255,255,255,.62); text-align:center; }
+.ecosystem-visuals img { display:block; width:100%; aspect-ratio:16/9; object-fit:contain; }
+.ecosystem-visuals figcaption { margin-top:4px; color:var(--ink); font-size:.78rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
 .insights-section { background: var(--navy-900); color: var(--cream); }
 .insights-section .section-title { max-width: 20ch; color: var(--cream); }
 .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 38px; }
@@ -276,6 +280,7 @@ h1, h2, h3, h4, .hero-sub, .result-number, .ecosystem-stat strong { font-family:
   .site-announcement { align-items: flex-start; flex-direction: column; gap: 3px; padding: 11px 22px; }
   .nav-panel { inset: 114px 0 0; }
   .hero-stats-grid, .ecosystem-stats, .insight-grid, #cases .result-grid { grid-template-columns: 1fr; }
+  .ecosystem-visuals { grid-template-columns:repeat(2,1fr); }
   .hero-stats-grid > div { border-right: 0; border-bottom: 1px solid rgba(37,24,58,.16); }
   .hero-stats-grid > div:last-child { border-bottom: 0; }
   #fundadora .beth { grid-template-columns: 1fr; }
