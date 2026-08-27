@@ -253,6 +253,25 @@ h1, h2, h3, h4, .hero-sub, .result-number, .ecosystem-stat strong { font-family:
 #cases .result-card { min-height: 210px; }
 .partner-section { display: none; }
 
+/* Ajustes finos v3 */
+.nav-inline { display:flex; align-items:center; justify-content:flex-end; gap:clamp(12px,2vw,28px); flex-wrap:wrap; }
+.nav-inline a { color:var(--cream); font-size:.78rem; font-weight:700; letter-spacing:.04em; white-space:nowrap; }
+.nav-inline a:hover { color:var(--orange-hi); }
+.nav-inline .nav-diagnosis { color:#fff; padding:11px 18px; }
+.research-cta-box { margin-top:28px; padding:18px 22px; background:var(--pink); border-radius:18px; display:inline-block; }
+.research-cta-box p { margin:0; }
+.btn-research { background:transparent !important; color:#fff !important; border:1px solid rgba(255,255,255,.55); }
+.btn-research:hover { background:#fff !important; color:var(--pink) !important; }
+#servicos .section-kicker { color:var(--orange) !important; }
+#servicos .service-grid h3 { color:var(--turquoise) !important; }
+.orbit-title-accent { color:var(--orange); }
+.insight-link { display:inline-block; margin-top:18px; color:var(--orange-hi); font-size:.82rem; font-weight:700; }
+.social-links { display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-top:38px; color:var(--muted); font-size:.82rem; }
+.social-links a { color:var(--cream); font-weight:700; }
+.footer-diagnosis { color:var(--orange-hi) !important; font-weight:800 !important; }
+.beth-detail-title { margin-top:24px; color:var(--orange); font-size:.78rem; letter-spacing:.14em; }
+.orbit-section { background-image:url("assets/orbit/orbit-background.png"); }
+
 @media (max-width: 720px) {
   .site-announcement { align-items: flex-start; flex-direction: column; gap: 3px; padding: 11px 22px; }
   .nav-panel { inset: 114px 0 0; }
@@ -262,6 +281,9 @@ h1, h2, h3, h4, .hero-sub, .result-number, .ecosystem-stat strong { font-family:
   #fundadora .beth { grid-template-columns: 1fr; }
   #fundadora .beth-emblem { order: 0; }
   #servicos { background-position: 65% center; }
+  .nav-inline { justify-content:flex-end; gap:10px 14px; }
+  .nav-inline a { font-size:.68rem; }
+  .nav-inline .nav-diagnosis { padding:8px 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) and (min-width: 721px) {
