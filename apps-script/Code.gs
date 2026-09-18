@@ -3,6 +3,7 @@ const CONFIG = Object.freeze({
   DIM_SHEET: 'Dimensoes_por_Escola',
   SEGMENT_SHEET: 'Segmentacao_Cruzada',
   PUBLIC_FORM_URL: 'https://sgurfinkel1-dev.github.io/nexara-site/pesquisa.html',
+  NOTIFY_TO: 'contato@nexaraconsulting.com.br',
   REPLY_TO: 'contato@nexaraconsulting.com.br',
 });
 
@@ -14,7 +15,7 @@ const DIM_HEADERS = [
 ];
 
 function doGet() {
-  return json_({ ok: true, service: 'Pesquisa Nacional Nexara 2026', version: 'v6' });
+    return json_({ ok: true, service: 'Pesquisa Nacional Nexara 2026', version: 'v11' });
 }
 
 function doPost(e) {
@@ -174,6 +175,21 @@ function sendConfirmationEmails_(payload) {
     'Um abraço,', 'Beth Loureiro',
   ].join('\n');
   MailApp.sendEmail({ to: p.P40, subject: 'Sua resposta foi registrada · Pesquisa Nacional do Ecossistema Humano Escolar', body: confirmation, name: 'Equipe Nexara · Nexara Consulting', replyTo: CONFIG.REPLY_TO });
+
+  const internal = [
+    'Nova resposta concluída na Pesquisa Nacional do Ecossistema Humano Escolar 2026.', '',
+    `Nome: ${name}`,
+    `E-mail: ${p.P40}`,
+    `Escola: ${school}`,
+    `Interesse em conversa: ${p.P44 || 'não informado'}`,
+    `WhatsApp: ${p.P45 || 'não informado'}`,
+    '', 'Respostas completas:', JSON.stringify(p, null, 2),
+  ].join('\n');
+  try {
+    MailApp.sendEmail({ to: CONFIG.NOTIFY_TO, subject: `Nova resposta da pesquisa · ${school}`, body: internal, name: 'Pesquisa Nexara · Nexara Consulting', replyTo: CONFIG.REPLY_TO });
+  } catch (notificationError) {
+    console.error(`Notificação interna não enviada: ${notificationError}`);
+  }
 
   if (p.P44 === 'Sim, quero agendar a conversa') {
     const conversation = [
