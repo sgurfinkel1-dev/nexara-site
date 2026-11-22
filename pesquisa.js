@@ -71,7 +71,7 @@
       { id:"P41", label:"Nome da escola.", type:"text", autocomplete:"organization", required:true },
       { id:"P42", label:"Você gostaria de receber o relatório do estudo antes da publicação aberta?", type:"radio", options:["Sim","Não"], required:true },
       { id:"P43", label:"Indique até duas pessoas da liderança da sua escola que também poderiam responder.", help:"Quando mais de uma liderança da mesma escola responde, é possível comparar as diferentes percepções sobre a mesma instituição. Escolas com mais de uma resposta têm prioridade na devolutiva individual.", type:"emails", required:false },
-      { id:"P44", label:"Você gostaria que eu lesse os números da sua escola com você?", help:"São 45 minutos, online, sobre os dados da sua escola. Não é apresentação de serviços. Agenda aberta até 04 de dezembro de 2026, com prioridade para escolas com mais de uma resposta.", type:"radio", options:[yesConversation,"Não, quero apenas o relatório do estudo"], required:true },
+      { id:"P44", label:"Você gostaria que eu lesse os números da sua escola com você?", help:"São 45 minutos, online, sobre os dados da sua escola. Não é apresentação de serviços. Agenda aberta até 18 de dezembro de 2026, com prioridade para escolas com mais de uma resposta.", type:"radio", options:[yesConversation,"Não, quero apenas o relatório do estudo"], required:true },
       { id:"P45", label:"WhatsApp para combinarmos a conversa.", help:"Usado apenas para agendar a conversa. Não entra em lista de disparo.", type:"tel", autocomplete:"tel", required:true, conditional:true },
     ],
   };
